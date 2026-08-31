@@ -6,13 +6,13 @@ hny 应用下载页面，用于展示各 APP 的正式版和测试版下载链�
 
 ## 包含应用
 
-| 应用 | 类型 | 正式版 | 测试版 |
-|---|---|---|---|
-| 星河工具盒 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/8q2ifpJx0Qz) |
-| 云影工具屋 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=com.hny.video) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/7bALvBIvIby) |
-| 轨交查询指南 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hnyqwq.metro) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/4uQpMlTjyh5) |
-| 轨交查询指南（元服务） | 元服务 | [华为服务卡片](https://h5hosting-drcn.dbankcdn.cn/cch5/ScenarizedDist/filePage/dist/index.html) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/97HN26SIItX) |
-| 云影工具屋（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/d499b2ab6cce532a602a2d55a93d66b3a3c371573bc3251790e81b84481f2309) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/52fRvA7p5Ow) |
+| 应用 | 类型 | 正式版 | 测试版 | 源码 |
+|---|---|---|---|---|
+| 星河工具盒 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/8q2ifpJx0Qz) | [hnyqwq/hny](https://gitee.com/hnyqwq/hny)（私密） |
+| 云影工具屋 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=com.hny.video) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/7bALvBIvIby) | [hnyqwq/video](https://gitee.com/hnyqwq/video)（私密） |
+| 轨交查询指南 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hnyqwq.metro) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/4uQpMlTjyh5) | [hnyqwq/metro](https://gitee.com/hnyqwq/metro)（私密） |
+| 轨交查询指南（元服务） | 元服务 | [华为服务卡片](https://h5hosting-drcn.dbankcdn.cn/cch5/ScenarizedDist/filePage/dist/index.html) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/97HN26SIItX) | [hnyqwq/Metroyfw](https://gitee.com/hnyqwq/Metroyfw)（私密） |
+| 云影工具屋（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/d499b2ab6cce532a602a2d55a93d66b3a3c371573bc3251790e81b84481f2309) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/52fRvA7p5Ow) | [hnyqwq/videoyfw](https://gitee.com/hnyqwq/videoyfw)（私密） |
 
 ## 特性
 
