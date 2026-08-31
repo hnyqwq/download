@@ -34,10 +34,10 @@ var APPS = [
     icon: "images/xxx.png",       // 应用图标
     desc: "应用描述",
     release: [
-      { badge: "images/baji1.png", url: "https://appgallery.huawei.com/app/detail?id=..." }
+      { platform: "华为应用市场", url: "https://appgallery.huawei.com/app/detail?id=..." }
     ],
     beta: [
-      { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/..." }
+      { platform: "AppTest 邀请测试", url: "https://appgallery.huawei.com/apptest/..." }
     ]
   },
 ];
@@ -52,8 +52,10 @@ var APPS = [
 | `desc` | 应用描述 |
 | `release` | 正式版链接数组 |
 | `beta` | 测试版链接数组 |
-| `badge` | 下载徽章图片路径（baji1=正式版，baji2=测试版） |
+| `platform` | 平台名称，决定显示的平台图标（含"AppTest"显示 AppTest 图标，否则显示 AppGallery 图标） |
 | `url` | 跳转链接 |
+
+> 下载徽章根据当前主题自动选择：浅色模式使用 `baji2.png`，深色模式使用 `baji1.png`，无需手动配置。 |
 
 ### 图片资源
 
