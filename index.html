@@ -451,9 +451,18 @@
     container.innerHTML = html;
   }
 
+  var bgImages = ['images/Vertical.jpg', 'images/show1.jpg', 'images/show2.jpg'];
+
   function switchBg() {
     var bg = document.getElementById('downloadBg');
-    bg.classList.toggle('alt');
+    var current = bg.style.backgroundImage;
+    var idx = 0;
+    for (var i = 0; i < bgImages.length; i++) {
+      if (current.indexOf(bgImages[i].split('/').pop()) !== -1) { idx = i; break; }
+    }
+    var next = (idx + 1) % bgImages.length;
+    bg.style.backgroundImage = 'url(' + bgImages[next] + ')';
+    bg.classList.remove('alt');
   }
 
   function toggleCollapse() {
