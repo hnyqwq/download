@@ -76,7 +76,7 @@
 
   .container {
     width: 100%;
-    max-width: 680px;
+    max-width: 960px;
     padding: 20px;
     z-index: 1;
     position: relative;
@@ -149,22 +149,19 @@
   }
 
   .tab-content.active {
-    display: block;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
   }
 
   .app-card {
     padding: 20px;
-    margin-bottom: 16px;
     background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
     border: 1px solid rgba(0, 0, 0, 0.06);
     transition: all 0.3s;
-  }
-
-  .app-card:last-child {
-    margin-bottom: 0;
   }
 
   .app-card:hover {
@@ -540,7 +537,7 @@
         var link = links[j];
         var pIcon = link.platform.indexOf('AppTest') !== -1 ? 'images/AppTest.png' : 'images/AppGallery.png';
         html += '<div class="app-link-item">';
-        html += '<div class="app-link-label"><img src="' + pIcon + '" alt="">' + link.platform + '</div>';
+        html += '<div class="app-link-label"><img src="' + pIcon + '" alt="">获取：' + link.platform + '</div>';
         if (type === 'release') {
           html += '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
           html += '<img class="download-badge" src="' + badgeSrc + '" alt="' + link.platform + '">';
