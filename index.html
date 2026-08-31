@@ -101,14 +101,9 @@
     overflow: hidden;
   }
 
-  .container.collapsed .ctrl-btn {
-    padding: 4px 8px;
-    font-size: 12px;
-  }
-
   .brand-header {
     text-align: center;
-    padding: 20px 30px 16px;
+    padding: 24px 30px 16px;
     position: relative;
   }
 
@@ -124,15 +119,17 @@
   .container.collapsed .header-btns {
     position: static;
     justify-content: center;
-    padding: 6px 8px;
+    padding: 4px 6px;
+    flex-direction: column;
+    gap: 2px;
   }
 
   #bgBtn { display: none; }
   .container.collapsed #bgBtn { display: inline-flex; }
 
   .container.collapsed .ctrl-btn {
-    padding: 4px 8px;
-    font-size: 12px;
+    padding: 3px 6px;
+    font-size: 11px;
   }
 
   .brand-name {
@@ -204,7 +201,7 @@
 
   .app-name { font-size: 17px; font-weight: bold; color: #1a1a2e; margin-bottom: 2px; }
 
-  .app-desc { font-size: 13px; color: #3a3a4a; }
+  .app-desc { font-size: 13px; color: #2a2a3a; }
 
   .app-links { display: flex; flex-direction: column; gap: 10px; }
 
@@ -296,7 +293,7 @@
   [data-theme="dark"] .app-card { background: rgba(40, 40, 60, 0.4); border-color: rgba(255, 255, 255, 0.08); }
   [data-theme="dark"] .app-card:hover { background: rgba(50, 50, 70, 0.5); }
   [data-theme="dark"] .app-name { color: #e8e8f0; }
-  [data-theme="dark"] .app-desc { color: #b8b8cc; }
+  [data-theme="dark"] .app-desc { color: #d0d0e0; }
   [data-theme="dark"] .app-link-label { color: #8c8ca0; }
   [data-theme="dark"] .empty-tip { color: #6c6c80; }
 
@@ -451,17 +448,20 @@
     container.innerHTML = html;
   }
 
-  var bgImages = ['images/Vertical.jpg', 'images/show1.jpg', 'images/show2.jpg'];
+  var portraitBgs = ['images/Vertical.jpg', 'images/show1.jpg', 'images/show2.jpg'];
+  var landscapeBgs = ['images/login-bg.jpg', 'images/Horizontal.jpg'];
 
   function switchBg() {
     var bg = document.getElementById('downloadBg');
-    var current = bg.style.backgroundImage;
+    var isLandscape = window.matchMedia('(orientation: landscape)').matches;
+    var bgs = isLandscape ? landscapeBgs : portraitBgs;
+    var current = bg.style.backgroundImage || '';
     var idx = 0;
-    for (var i = 0; i < bgImages.length; i++) {
-      if (current.indexOf(bgImages[i].split('/').pop()) !== -1) { idx = i; break; }
+    for (var i = 0; i < bgs.length; i++) {
+      if (current.indexOf(bgs[i].split('/').pop()) !== -1) { idx = i; break; }
     }
-    var next = (idx + 1) % bgImages.length;
-    bg.style.backgroundImage = 'url(' + bgImages[next] + ')';
+    var next = (idx + 1) % bgs.length;
+    bg.style.backgroundImage = 'url(' + bgs[next] + ')';
     bg.classList.remove('alt');
   }
 
