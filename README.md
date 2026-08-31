@@ -20,11 +20,76 @@ hnyqwq HarmonyOS 应用下载页面。
 - HarmonyOS Sans SC 字体
 - 正式版 / 测试版 Tab 切换
 - 响应式布局，小屏单列大屏双列自动排布
+- AppGallery 下载徽章 + AppTest 文字按钮
 - 深色/浅色模式切换，跟随系统实时切换
 - 背景图切换，首次换图后自动升级高清版
 - 收起/展开，收起后进入赏图模式
 - 微信/QQ/微博内置浏览器引导遮罩
 - 纯静态单文件，零依赖
+
+## 配置
+
+编辑 `index.html` 中的 `APPS` 数组即可增删应用和链接：
+
+```javascript
+var APPS = [
+  {
+    name: "应用名称",
+    icon: "images/xxx.png",       // 应用图标
+    desc: "应用描述",
+    release: [
+      { platform: "华为应用市场", url: "https://appgallery.huawei.com/app/detail?id=..." }
+    ],
+    beta: [
+      { platform: "AppTest 邀请测试", url: "https://appgallery.huawei.com/apptest/..." }
+    ]
+  },
+];
+```
+
+### 字段说明
+
+| 字段 | 说明 |
+|---|---|
+| `name` | 应用名称 |
+| `icon` | 应用图标图片路径 |
+| `desc` | 应用描述 |
+| `release` | 正式版链接数组 |
+| `beta` | 测试版链接数组 |
+| `platform` | 平台名称，决定显示的平台图标（含"AppTest"显示 AppTest 图标，否则显示 AppGallery 图标） |
+| `url` | 跳转链接 |
+
+> 正式版下载徽章根据当前主题自动选择：浅色模式使用 `baji2.png`，深色模式使用 `baji1.png`。测试版使用文字按钮，无需手动配置。
+
+### 背景图
+
+默认背景图（低清）：
+
+| 方向 | 文件 |
+|---|---|
+| 竖屏 | `Vertical.jpg`、`login-bg2.jpg` |
+| 横屏 | `login-bg.jpg`、`Horizontal.jpg` |
+
+点击换图后自动升级为高清版：
+
+| 方向 | 文件 |
+|---|---|
+| 竖屏 | `showVertical.jpg`、`show1.jpg`、`show2.jpg` |
+| 横屏 | `showlogin-bg.jpg`、`show3.jpg`、`showHorizontal.jpg` |
+
+### 其他图片资源
+
+| 文件 | 说明 |
+|---|---|
+| `baji1.png` | 正式版下载徽章（深色模式） |
+| `baji2.png` | 正式版下载徽章（浅色模式） |
+| `XHTB.png` | 星河工具盒图标 |
+| `video.png` | 云影工具屋图标 |
+| `metro.png` | 轨交查询指南图标 |
+| `metroyfw.png` | 轨交查询指南（元服务）图标 |
+| `videoyfw.png` | 云影工具屋（元服务）图标 |
+| `AppGallery.png` | AppGallery 平台图标 |
+| `AppTest.png` | AppTest 平台图标 |
 
 ## 相关项目
 
