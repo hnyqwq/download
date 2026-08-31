@@ -82,7 +82,7 @@ var APPS = [
 
 ## 相关项目
 
-- [星河通行证](https://gitee.com/hnyqwq/user-auth-api) — 统一认证平台
+- [星河通行证](https://gitee.com/hnyqwq/user-auth-api)（私密） — 统一认证平台
 
 ## 许可
 
