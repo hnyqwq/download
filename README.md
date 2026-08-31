@@ -1,6 +1,6 @@
 # hnyqwq 应用下载中心
 
-hnyqwq HarmonyOS 应用下载页面。
+hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版和测试版下载链接。
 
 网站地址：[download.hnyqwq.cn](https://download.hnyqwq.cn)
 
