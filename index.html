@@ -52,8 +52,26 @@
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    background: url("images/Vertical.jpg") center/cover no-repeat;
+    filter: blur(2px);
     z-index: 0;
+  }
+
+  @media (orientation: landscape) {
+    .download-bg {
+      background: url("images/login-bg.jpg") center/cover no-repeat;
+    }
+    .download-bg.alt {
+      background: url("images/Horizontal.jpg") center/cover no-repeat;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .download-bg {
+      background-image: url("images/Vertical.jpg");
+      background-attachment: fixed;
+      filter: blur(2px);
+    }
   }
 
   .container {
@@ -161,8 +179,11 @@
   }
 
   .app-icon {
-    font-size: 36px;
-    line-height: 1;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
   }
 
   .app-info {
@@ -182,8 +203,8 @@
   }
 
   .app-links {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 10px;
   }
 
@@ -213,10 +234,26 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
-  .platform-btn svg {
+  .platform-btn svg,
+  .platform-btn img {
     width: 18px;
     height: 18px;
     flex-shrink: 0;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  .download-badge {
+    display: block;
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .download-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   .empty-tip {
@@ -279,13 +316,16 @@
     }
 
     .app-links {
-      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
     }
 
     .platform-btn {
       padding: 10px 8px;
       font-size: 12px;
+    }
+
+    .download-badge {
+      max-width: 160px;
     }
 
     ::-webkit-scrollbar {
@@ -302,7 +342,7 @@
   </style>
 </head>
 <body>
-  <div class="download-bg"></div>
+  <div class="download-bg" id="downloadBg"></div>
   <div class="container">
     <div class="glass-card">
       <div class="brand-header">
@@ -327,41 +367,61 @@
   <script>
   var APPS = [
     {
-      name: "示例应用 1",
-      icon: "\u{1F680}",
-      desc: "这是一个示例应用的描述",
+      name: "星河工具盒 Xinghe Tool Box",
+      icon: "images/XHTB.png",
+      desc: "鸿蒙便捷分享应用，支持链接/文本/图片/视频自定义分享，碰一碰与隔空投送跨设备传输",
       release: [
-        { platform: "App Store", url: "https://apps.apple.com/", color: "#007AFF", icon: "apple" },
-        { platform: "华为应用市场", url: "https://appgallery.huawei.com/", color: "#cf282a", icon: "huawei" },
-        { platform: "Google Play", url: "https://play.google.com/", color: "#34A853", icon: "google" },
-        { platform: "小米应用商店", url: "https://app.mi.com/", color: "#FF6900", icon: "xiaomi" }
+        { badge: "images/baji1.png", url: "https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq" }
       ],
       beta: [
-        { platform: "TestFlight", url: "https://testflight.apple.com/", color: "#007AFF", icon: "apple" },
-        { platform: "华为测试渠道", url: "#", color: "#cf282a", icon: "huawei" }
+        { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/8q2ifpJx0Qz" }
       ]
     },
     {
-      name: "示例应用 2",
-      icon: "\u{1F4F1}",
-      desc: "另一个示例应用",
+      name: "云影工具屋 YunYing Tool House",
+      icon: "images/video.png",
+      desc: "HarmonyOS 视频播放器，支持网络/本地视频播放、网页视频提取、碰一碰分享、扫码输入、OCR文字识别等",
       release: [
-        { platform: "App Store", url: "https://apps.apple.com/", color: "#007AFF", icon: "apple" },
-        { platform: "华为应用市场", url: "https://appgallery.huawei.com/", color: "#cf282a", icon: "huawei" }
+        { badge: "images/baji1.png", url: "https://appgallery.huawei.com/app/detail?id=com.hny.video" }
       ],
       beta: [
-        { platform: "TestFlight", url: "https://testflight.apple.com/", color: "#007AFF", icon: "apple" }
+        { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/7bALvBIvIby" }
+      ]
+    },
+    {
+      name: "轨交查询指南 Tianfu Rail Transit Guide",
+      icon: "images/metro.png",
+      desc: "专为成都地铁乘客打造的 HarmonyOS 原生出行 App，提供线路查询、站点详情、路线规划、附近站点定位等功能",
+      release: [
+        { badge: "images/baji1.png", url: "https://appgallery.huawei.com/app/detail?id=yylx.hnyqwq.metro" }
+      ],
+      beta: [
+        { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/4uQpMlTjyh5" }
+      ]
+    },
+    {
+      name: "轨交查询指南 Tianfu Rail Transit Guide（元服务）",
+      icon: "images/metroyfw.png",
+      desc: "专为成都地铁乘客打造的 HarmonyOS 原生出行 App 元服务版，提供线路查询、站点详情、路线规划等功能",
+      release: [
+        { badge: "images/baji1.png", url: "https://h5hosting-drcn.dbankcdn.cn/cch5/ScenarizedDist/filePage/dist/index.html" }
+      ],
+      beta: [
+        { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/97HN26SIItX" }
+      ]
+    },
+    {
+      name: "云影工具屋 YunYing Tool House（元服务）",
+      icon: "images/videoyfw.png",
+      desc: "HarmonyOS 视频播放器元服务版，支持网络/本地视频播放、扫码输入、语音转文字等",
+      release: [
+        { badge: "images/baji1.png", url: "https://hoas.drcn.agconnect.link/d499b2ab6cce532a602a2d55a93d66b3a3c371573bc3251790e81b84481f2309" }
+      ],
+      beta: [
+        { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/52fRvA7p5Ow" }
       ]
     }
   ];
-
-  var SVG_ICONS = {
-    apple: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>',
-    huawei: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.41 7.22C5.18 4.54 8.4 3 12 3s6.82 1.54 8.59 4.22c.22.33.11.78-.24.99L12.4 13.5c-.12.07-.26.11-.4.11s-.28-.04-.4-.11L3.65 8.21c-.35-.21-.46-.66-.24-.99zM2.1 10.6c.24-.37.75-.48 1.12-.24l7.65 4.59c.17.1.26.29.26.48v7.49c0 .45-.36.82-.8.82-.13 0-.27-.03-.39-.1C5.78 21.54 2.6 16.92 2.1 10.6zm18.68 0c-.5 6.32-3.68 10.94-7.84 13.04-.12.07-.26.1-.39.1-.44 0-.8-.37-.8-.82v-7.49c0-.19.09-.38.26-.48l7.65-4.59c.37-.24.88-.13 1.12.24z"/></svg>',
-    google: '<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>',
-    xiaomi: '<svg viewBox="0 0 24 24" fill="#FF6900"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>',
-    generic: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>'
-  };
 
   function renderApps(type) {
     var container = document.getElementById(type === 'release' ? 'tabRelease' : 'tabBeta');
@@ -376,7 +436,7 @@
 
       html += '<div class="app-card">';
       html += '<div class="app-header">';
-      html += '<div class="app-icon">' + app.icon + '</div>';
+      html += '<img class="app-icon" src="' + app.icon + '" alt="' + app.name + '">';
       html += '<div class="app-info">';
       html += '<div class="app-name">' + app.name + '</div>';
       html += '<div class="app-desc">' + app.desc + '</div>';
@@ -386,16 +446,22 @@
 
       for (var j = 0; j < links.length; j++) {
         var link = links[j];
-        var svgIcon = SVG_ICONS[link.icon] || SVG_ICONS.generic;
-        var borderColor = link.color ? 'rgba(' + hexToRgb(link.color) + ',0.3)' : 'rgba(0,0,0,0.08)';
-        var hoverColor = link.color ? link.color : '#333';
-        html += '<a class="platform-btn" href="' + link.url + '" target="_blank" rel="noopener noreferrer" ';
-        html += 'style="border-color:' + borderColor + ';color:' + (link.color || '#333') + '" ';
-        html += 'onmouseenter="this.style.borderColor=\'' + hoverColor + '\';this.style.background=\'rgba(' + hexToRgb(hoverColor) + ',0.08)\'" ';
-        html += 'onmouseleave="this.style.borderColor=\'' + borderColor + '\';this.style.background=\'rgba(255,255,255,0.5)\'">';
-        html += svgIcon;
-        html += '<span>' + link.platform + '</span>';
-        html += '</a>';
+        if (link.badge) {
+          html += '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
+          html += '<img class="download-badge" src="' + link.badge + '" alt="下载">';
+          html += '</a>';
+        } else {
+          var svgIcon = SVG_ICONS[link.icon] || SVG_ICONS.generic;
+          var borderColor = link.color ? 'rgba(' + hexToRgb(link.color) + ',0.3)' : 'rgba(0,0,0,0.08)';
+          var hoverColor = link.color ? link.color : '#333';
+          html += '<a class="platform-btn" href="' + link.url + '" target="_blank" rel="noopener noreferrer" ';
+          html += 'style="border-color:' + borderColor + ';color:' + (link.color || '#333') + '" ';
+          html += 'onmouseenter="this.style.borderColor=\'' + hoverColor + '\';this.style.background=\'rgba(' + hexToRgb(hoverColor) + ',0.08)\'" ';
+          html += 'onmouseleave="this.style.borderColor=\'' + borderColor + '\';this.style.background=\'rgba(255,255,255,0.5)\'">';
+          html += svgIcon;
+          html += '<span>' + link.platform + '</span>';
+          html += '</a>';
+        }
       }
 
       html += '</div>';
@@ -428,6 +494,13 @@
 
   renderApps('release');
   renderApps('beta');
+
+  (function(){
+    var bg = document.getElementById('downloadBg');
+    if (bg && window.matchMedia('(orientation: landscape)').matches && Math.random() < 0.5) {
+      bg.classList.add('alt');
+    }
+  })();
   </script>
 </body>
 </html>
