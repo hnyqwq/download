@@ -34,9 +34,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     overflow-x: hidden;
-    padding-bottom: 40px;
+    padding: 40px 0;
   }
 
   .download-bg {
@@ -87,9 +86,7 @@
     overflow: hidden;
   }
 
-  .container.collapsed .glass-card {
-    border-radius: 10px;
-  }
+  .container.collapsed .glass-card { border-radius: 10px; }
 
   .card-inner {
     transform-origin: top right;
@@ -102,6 +99,17 @@
     pointer-events: none;
     height: 0;
     overflow: hidden;
+  }
+
+  .container.collapsed .ctrl-bar {
+    justify-content: center;
+    padding: 6px 8px;
+    gap: 4px;
+  }
+
+  .container.collapsed .ctrl-btn {
+    padding: 4px 8px;
+    font-size: 12px;
   }
 
   .brand-header {
@@ -217,15 +225,19 @@
 
   .empty-tip { text-align: center; color: #8c8c9a; padding: 40px 0; font-size: 14px; }
 
+  #bgBtn {
+    display: none;
+  }
+
+  .container.collapsed #bgBtn {
+    display: inline-block;
+  }
+
   .ctrl-bar {
     display: flex;
     gap: 6px;
     padding: 8px 12px;
     justify-content: flex-end;
-  }
-
-  .container.collapsed .ctrl-bar {
-    justify-content: center;
   }
 
   .ctrl-btn {
@@ -302,6 +314,7 @@
   <div class="container" id="mainContainer">
     <div class="glass-card">
       <div class="ctrl-bar">
+        <button class="ctrl-btn" id="bgBtn" onclick="switchBg()">🖼 换图</button>
         <button class="ctrl-btn" id="collapseBtn" onclick="toggleCollapse()">收起 ▲</button>
         <button class="ctrl-btn" id="themeBtn" onclick="switchTheme()"></button>
       </div>
@@ -429,6 +442,11 @@
     }
 
     container.innerHTML = html;
+  }
+
+  function switchBg() {
+    var bg = document.getElementById('downloadBg');
+    bg.classList.toggle('alt');
   }
 
   function toggleCollapse() {
