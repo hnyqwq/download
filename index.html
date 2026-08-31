@@ -573,6 +573,13 @@
   })();
 
   (function(){
+    var pending = localStorage.getItem('pendingUrl');
+    if (pending) {
+      localStorage.removeItem('pendingUrl');
+      window.location.href = pending;
+      return;
+    }
+
     var ua = navigator.userAgent.toLowerCase();
     var isBlocked = ua.indexOf('micromessenger') !== -1 || ua.indexOf('qq/') !== -1 || ua.indexOf('weibo') !== -1;
     var noHarmony = ua.indexOf('harmonyos') === -1;
@@ -590,6 +597,10 @@
         if (target && (target.classList.contains('platform-btn') || target.querySelector('.download-badge') || target.querySelector('img.download-badge'))) {
           e.preventDefault();
           e.stopPropagation();
+          var url = target.getAttribute('href');
+          if (url) {
+            localStorage.setItem('pendingUrl', url);
+          }
           document.getElementById('browserGuide').style.display = 'block';
         }
       }, true);
