@@ -82,44 +82,6 @@
     position: relative;
   }
 
-  .glass-card {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-radius: 16px;
-    border: none;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
-                0 2px 8px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-  }
-
-  .brand-header {
-    text-align: center;
-    padding: 28px 30px 16px;
-    position: relative;
-  }
-
-  .brand-name {
-    font-size: 26px;
-    font-weight: bold;
-    color: #1a1a2e;
-    letter-spacing: 1px;
-  }
-
-  .brand-sub {
-    display: block;
-    font-size: 12px;
-    color: #8c8c9a;
-    margin-top: 6px;
-    letter-spacing: 1px;
-  }
-
-  .tabs {
-    display: flex;
-    background: rgba(240, 240, 245, 0.5);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  }
-
   .tab {
     flex: 1;
     padding: 14px;
@@ -141,17 +103,6 @@
     color: #667eea;
     border-bottom-color: #667eea;
     font-weight: 600;
-  }
-
-  .tab-content {
-    display: none;
-    padding: 24px 30px 30px;
-  }
-
-  .tab-content.active {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
   }
 
   .app-card {
@@ -282,25 +233,97 @@
     display: block;
   }
 
-  .glass-card.collapsed .brand-header {
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 40px;
+  .glass-card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.4s ease;
   }
 
-  .glass-card.collapsed .brand-name,
-  .glass-card.collapsed .brand-sub,
-  .glass-card.collapsed .tabs,
-  .glass-card.collapsed .tab-content {
+  .brand-header {
+    text-align: center;
+    padding: 28px 30px 16px;
+    position: relative;
+    transition: padding 0.4s ease;
+  }
+
+  .brand-name {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1a1a2e;
+    letter-spacing: 1px;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+  }
+
+  .brand-sub {
+    display: block;
+    font-size: 12px;
+    color: #8c8c9a;
+    margin-top: 6px;
+    letter-spacing: 1px;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+  }
+
+  .tabs {
+    display: flex;
+    background: rgba(240, 240, 245, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    transition: opacity 0.3s ease, max-height 0.4s ease;
+    overflow: hidden;
+  }
+
+  .tab-content {
     display: none;
+    padding: 24px 30px 30px;
+    transition: opacity 0.3s ease, max-height 0.4s ease, padding 0.4s ease;
+    overflow: hidden;
+  }
+
+  .tab-content.active {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .glass-card.collapsed .brand-header {
+    padding: 10px 16px;
+  }
+
+  .glass-card.collapsed .brand-name {
+    opacity: 0;
+    height: 0;
+    margin: 0;
+  }
+
+  .glass-card.collapsed .brand-sub {
+    opacity: 0;
+    height: 0;
+    margin: 0;
+  }
+
+  .glass-card.collapsed .tabs {
+    opacity: 0;
+    max-height: 0;
+    border: none;
+  }
+
+  .glass-card.collapsed .tab-content {
+    opacity: 0;
+    max-height: 0;
+    padding: 0;
   }
 
   #collapseBtn {
     position: absolute;
-    top: 6px;
-    right: 50px;
+    top: 28px;
+    right: 70px;
     background: none;
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 6px;
@@ -309,28 +332,20 @@
     cursor: pointer;
     color: #5a5a6a;
     font-family: inherit;
-    display: none;
+    transition: all 0.3s;
   }
 
   [data-theme="dark"] #collapseBtn {
     color: #b0b0c0;
     border-color: rgba(255, 255, 255, 0.15);
-    display: inline-block;
-  }
-
-  [data-theme="dark"] #themeBtn {
-    right: 6px;
-    top: 6px;
   }
 
   .glass-card.collapsed #collapseBtn {
     top: 8px;
-    right: 56px;
   }
 
   .glass-card.collapsed #themeBtn {
     top: 8px;
-    right: 6px;
   }
 
   .empty-tip {
