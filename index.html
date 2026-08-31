@@ -76,7 +76,7 @@
 
   .container {
     width: 100%;
-    max-width: 520px;
+    max-width: 680px;
     padding: 20px;
     z-index: 1;
     position: relative;
@@ -541,9 +541,15 @@
         var pIcon = link.platform.indexOf('AppTest') !== -1 ? 'images/AppTest.png' : 'images/AppGallery.png';
         html += '<div class="app-link-item">';
         html += '<div class="app-link-label"><img src="' + pIcon + '" alt="">' + link.platform + '</div>';
-        html += '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
-        html += '<img class="download-badge" src="' + badgeSrc + '" alt="' + link.platform + '">';
-        html += '</a>';
+        if (type === 'release') {
+          html += '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
+          html += '<img class="download-badge" src="' + badgeSrc + '" alt="' + link.platform + '">';
+          html += '</a>';
+        } else {
+          html += '<a class="platform-btn" href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
+          html += '<img src="' + pIcon + '" alt="">前往测试';
+          html += '</a>';
+        }
         html += '</div>';
       }
 
@@ -586,6 +592,15 @@
     } else {
       document.documentElement.setAttribute('data-theme', 'light');
     }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (!localStorage.getItem('theme')) {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        renderApps('release');
+        renderApps('beta');
+        updateThemeBtn();
+      }
+    });
   })();
 
   document.querySelectorAll('.tab').forEach(function(tab) {
