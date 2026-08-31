@@ -84,6 +84,4 @@ var APPS = [
 
 - [星河通行证](https://gitee.com/hnyqwq/user-auth-api)（私密） — 统一认证平台
 
-## 许可
 
-[Apache 2.0](LICENSE)
