@@ -239,6 +239,7 @@
     flex-shrink: 0;
     object-fit: contain;
     border-radius: 4px;
+    display: block;
   }
 
   .download-badge {
@@ -278,6 +279,7 @@
     object-fit: contain;
     border-radius: 4px;
     flex-shrink: 0;
+    display: block;
   }
 
   .empty-tip {
@@ -309,7 +311,18 @@
 
   [data-theme="dark"] .download-bg {
     background: url("images/Vertical.jpg") center/cover no-repeat;
-    filter: brightness(0.3) blur(2px);
+    filter: brightness(0.4) blur(2px);
+  }
+
+  @media (orientation: landscape) {
+    [data-theme="dark"] .download-bg {
+      background: url("images/login-bg.jpg") center/cover no-repeat;
+      filter: brightness(0.4) blur(2px);
+    }
+    [data-theme="dark"] .download-bg.alt {
+      background: url("images/Horizontal.jpg") center/cover no-repeat;
+      filter: brightness(0.4) blur(2px);
+    }
   }
 
   [data-theme="dark"] .glass-card {
