@@ -6,7 +6,6 @@
   <title>hnyqwq 应用下载中心</title>
   <link rel="icon" type="image/png" href="https://user.hnyqwq.cn/images/favicon.png">
   <style>
-  /* HarmonyOS Sans SC - 常规 */
   @font-face {
     font-family: 'HarmonyOS Sans SC';
     src: url('https://user.hnyqwq.cn/fonts/HarmonyOS_Sans_SC_Regular.woff2') format('woff2'),
@@ -16,7 +15,6 @@
     font-display: swap;
   }
 
-  /* HarmonyOS Sans SC - 粗体 */
   @font-face {
     font-family: 'HarmonyOS Sans SC';
     src: url('https://user.hnyqwq.cn/fonts/HarmonyOS_Sans_SC_Bold.woff2') format('woff2'),
@@ -26,17 +24,9 @@
     font-display: swap;
   }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html {
-    overflow-y: auto;
-    height: auto;
-    min-height: 100%;
-  }
+  html { overflow-y: auto; height: auto; min-height: 100%; }
 
   body {
     font-family: 'HarmonyOS Sans SC', 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -46,6 +36,7 @@
     align-items: center;
     justify-content: center;
     overflow-x: hidden;
+    padding-bottom: 40px;
   }
 
   .download-bg {
@@ -58,20 +49,12 @@
   }
 
   @media (orientation: landscape) {
-    .download-bg {
-      background: url("images/login-bg.jpg") center/cover no-repeat;
-    }
-    .download-bg.alt {
-      background: url("images/Horizontal.jpg") center/cover no-repeat;
-    }
+    .download-bg { background: url("images/login-bg.jpg") center/cover no-repeat; }
+    .download-bg.alt { background: url("images/Horizontal.jpg") center/cover no-repeat; }
   }
 
   @media (max-width: 480px) {
-    .download-bg {
-      background-image: url("images/Vertical.jpg");
-      background-attachment: fixed;
-      filter: blur(2px);
-    }
+    .download-bg { background-image: url("images/Vertical.jpg"); background-attachment: fixed; filter: blur(2px); }
   }
 
   .container {
@@ -80,6 +63,72 @@
     padding: 20px;
     z-index: 1;
     position: relative;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .container.collapsed {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: auto;
+    max-width: none;
+    padding: 0;
+  }
+
+  body.collapsed-bg .download-bg { filter: none !important; }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+
+  .container.collapsed .glass-card {
+    border-radius: 10px;
+  }
+
+  .card-inner {
+    transform-origin: top right;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .container.collapsed .card-inner {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .brand-header {
+    text-align: center;
+    padding: 28px 30px 16px;
+    position: relative;
+  }
+
+  .brand-name {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1a1a2e;
+    letter-spacing: 1px;
+  }
+
+  .brand-sub {
+    display: block;
+    font-size: 12px;
+    color: #8c8c9a;
+    margin-top: 6px;
+    letter-spacing: 1px;
+  }
+
+  .tabs {
+    display: flex;
+    background: rgba(240, 240, 245, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   }
 
   .tab {
@@ -95,14 +144,19 @@
     font-family: inherit;
   }
 
-  .tab:hover {
-    background: rgba(255, 255, 255, 0.3);
+  .tab:hover { background: rgba(255, 255, 255, 0.3); }
+
+  .tab.active { color: #667eea; border-bottom-color: #667eea; font-weight: 600; }
+
+  .tab-content {
+    display: none;
+    padding: 24px 30px 30px;
   }
 
-  .tab.active {
-    color: #667eea;
-    border-bottom-color: #667eea;
-    font-weight: 600;
+  .tab-content.active {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
   }
 
   .app-card {
@@ -115,47 +169,19 @@
     transition: all 0.3s;
   }
 
-  .app-card:hover {
-    background: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  }
+  .app-card:hover { background: rgba(255, 255, 255, 0.6); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); }
 
-  .app-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
+  .app-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 
-  .app-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    object-fit: cover;
-    flex-shrink: 0;
-  }
+  .app-icon { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }
 
-  .app-info {
-    flex: 1;
-  }
+  .app-info { flex: 1; }
 
-  .app-name {
-    font-size: 17px;
-    font-weight: bold;
-    color: #1a1a2e;
-    margin-bottom: 2px;
-  }
+  .app-name { font-size: 17px; font-weight: bold; color: #1a1a2e; margin-bottom: 2px; }
 
-  .app-desc {
-    font-size: 13px;
-    color: #5a5a6a;
-  }
+  .app-desc { font-size: 13px; color: #3a3a4a; }
 
-  .app-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .app-links { display: flex; flex-direction: column; gap: 10px; }
 
   .platform-btn {
     display: flex;
@@ -177,153 +203,32 @@
     font-family: inherit;
   }
 
-  .platform-btn:hover {
-    background: rgba(255, 255, 255, 0.75);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
+  .platform-btn:hover { background: rgba(255, 255, 255, 0.75); transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
 
-  .platform-btn svg,
-  .platform-btn img {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    object-fit: contain;
-    border-radius: 4px;
-    display: block;
-  }
+  .platform-btn svg, .platform-btn img { width: 16px; height: 16px; flex-shrink: 0; object-fit: contain; border-radius: 4px; display: block; }
 
-  .download-badge {
-    display: block;
-    max-width: 200px;
-    width: 100%;
-    height: auto;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+  .download-badge { display: block; max-width: 160px; width: 100%; height: auto; border-radius: 10px; transition: transform 0.3s, box-shadow 0.3s; }
+  .download-badge:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
 
-  .download-badge:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
+  .app-link-item { display: flex; flex-direction: column; gap: 6px; }
 
-  .app-link-item {
+  .app-link-label { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #5a5a6a; }
+  .app-link-label img { width: 14px; height: 14px; object-fit: contain; border-radius: 4px; flex-shrink: 0; display: block; }
+
+  .empty-tip { text-align: center; color: #8c8c9a; padding: 40px 0; font-size: 14px; }
+
+  .ctrl-bar {
     display: flex;
-    flex-direction: column;
     gap: 6px;
+    padding: 8px 12px;
+    justify-content: flex-end;
   }
 
-  .app-link-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: #5a5a6a;
+  .container.collapsed .ctrl-bar {
+    justify-content: center;
   }
 
-  [data-theme="dark"] .app-link-label {
-    color: #8c8ca0;
-  }
-
-  .app-link-label img {
-    width: 14px;
-    height: 14px;
-    object-fit: contain;
-    border-radius: 4px;
-    flex-shrink: 0;
-    display: block;
-  }
-
-  .glass-card {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-radius: 16px;
-    border: none;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
-                0 2px 8px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    transition: all 0.4s ease;
-  }
-
-  .brand-header {
-    text-align: center;
-    padding: 28px 30px 16px;
-    position: relative;
-    transition: padding 0.4s ease;
-  }
-
-  .brand-name {
-    font-size: 26px;
-    font-weight: bold;
-    color: #1a1a2e;
-    letter-spacing: 1px;
-    transition: opacity 0.3s ease;
-    overflow: hidden;
-  }
-
-  .brand-sub {
-    display: block;
-    font-size: 12px;
-    color: #8c8c9a;
-    margin-top: 6px;
-    letter-spacing: 1px;
-    transition: opacity 0.3s ease;
-    overflow: hidden;
-  }
-
-  .tabs {
-    display: flex;
-    background: rgba(240, 240, 245, 0.5);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    transition: opacity 0.3s ease, max-height 0.4s ease;
-    overflow: hidden;
-  }
-
-  .tab-content {
-    display: none;
-    padding: 24px 30px 30px;
-    transition: opacity 0.3s ease, max-height 0.4s ease, padding 0.4s ease;
-    overflow: hidden;
-  }
-
-  .tab-content.active {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-  }
-
-  .glass-card.collapsed .brand-header {
-    padding: 10px 16px;
-  }
-
-  .glass-card.collapsed .brand-name {
-    opacity: 0;
-    height: 0;
-    margin: 0;
-  }
-
-  .glass-card.collapsed .brand-sub {
-    opacity: 0;
-    height: 0;
-    margin: 0;
-  }
-
-  .glass-card.collapsed .tabs {
-    opacity: 0;
-    max-height: 0;
-    border: none;
-  }
-
-  .glass-card.collapsed .tab-content {
-    opacity: 0;
-    max-height: 0;
-    padding: 0;
-  }
-
-  #collapseBtn {
-    position: absolute;
-    top: 28px;
-    right: 70px;
+  .ctrl-btn {
     background: none;
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 6px;
@@ -332,198 +237,86 @@
     cursor: pointer;
     color: #5a5a6a;
     font-family: inherit;
-    transition: all 0.3s;
+    transition: all 0.2s;
+    white-space: nowrap;
   }
 
-  [data-theme="dark"] #collapseBtn {
-    color: #b0b0c0;
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  .glass-card.collapsed #collapseBtn {
-    top: 8px;
-  }
-
-  .glass-card.collapsed #themeBtn {
-    top: 8px;
-  }
-
-  .empty-tip {
-    text-align: center;
-    color: #8c8c9a;
-    padding: 40px 0;
-    font-size: 14px;
-  }
+  .ctrl-btn:hover { background: rgba(0, 0, 0, 0.04); }
 
   .site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     text-align: center;
-    padding: 20px 0;
+    padding: 12px 0;
     font-size: 13px;
     color: rgba(255, 255, 255, 0.6);
-    position: relative;
     z-index: 1;
-    width: 100%;
   }
 
-  .site-footer a {
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
+  .site-footer a { color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: color 0.2s; }
+  .site-footer a:hover { color: rgba(255, 255, 255, 0.95); }
 
-  .site-footer a:hover {
-    color: rgba(255, 255, 255, 0.95);
-  }
-
-  [data-theme="dark"] .download-bg {
-    background: url("images/Vertical.jpg") center/cover no-repeat;
-    filter: brightness(0.4) blur(2px);
-  }
+  [data-theme="dark"] .download-bg { background: url("images/Vertical.jpg") center/cover no-repeat; filter: brightness(0.4) blur(2px); }
 
   @media (orientation: landscape) {
-    [data-theme="dark"] .download-bg {
-      background: url("images/login-bg.jpg") center/cover no-repeat;
-      filter: brightness(0.4) blur(2px);
-    }
-    [data-theme="dark"] .download-bg.alt {
-      background: url("images/Horizontal.jpg") center/cover no-repeat;
-      filter: brightness(0.4) blur(2px);
-    }
+    [data-theme="dark"] .download-bg { background: url("images/login-bg.jpg") center/cover no-repeat; filter: brightness(0.4) blur(2px); }
+    [data-theme="dark"] .download-bg.alt { background: url("images/Horizontal.jpg") center/cover no-repeat; filter: brightness(0.4) blur(2px); }
   }
 
-  [data-theme="dark"] .glass-card {
-    background: rgba(30, 30, 50, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  [data-theme="dark"] .brand-name {
-    color: #e8e8f0;
-  }
-
-  [data-theme="dark"] .brand-sub {
-    color: #8c8ca0;
-  }
-
-  [data-theme="dark"] #themeBtn {
-    color: #b0b0c0;
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  [data-theme="dark"] .tabs {
-    background: rgba(40, 40, 60, 0.5);
-    border-bottom-color: rgba(255, 255, 255, 0.08);
-  }
-
-  [data-theme="dark"] .tab {
-    color: #999;
-  }
-
-  [data-theme="dark"] .tab:hover {
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  [data-theme="dark"] .tab.active {
-    color: #8b9cf7;
-    border-bottom-color: #8b9cf7;
-  }
-
-  [data-theme="dark"] .app-card {
-    background: rgba(40, 40, 60, 0.4);
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  [data-theme="dark"] .app-card:hover {
-    background: rgba(50, 50, 70, 0.5);
-  }
-
-  [data-theme="dark"] .app-name {
-    color: #e8e8f0;
-  }
-
-  [data-theme="dark"] .app-desc {
-    color: #8c8ca0;
-  }
-
-  [data-theme="dark"] .empty-tip {
-    color: #6c6c80;
-  }
+  [data-theme="dark"] .glass-card { background: rgba(30, 30, 50, 0.75); border: 1px solid rgba(255, 255, 255, 0.1); }
+  [data-theme="dark"] .brand-name { color: #e8e8f0; }
+  [data-theme="dark"] .brand-sub { color: #8c8ca0; }
+  [data-theme="dark"] .ctrl-btn { color: #b0b0c0; border-color: rgba(255, 255, 255, 0.15); }
+  [data-theme="dark"] .ctrl-btn:hover { background: rgba(255, 255, 255, 0.06); }
+  [data-theme="dark"] .tabs { background: rgba(40, 40, 60, 0.5); border-bottom-color: rgba(255, 255, 255, 0.08); }
+  [data-theme="dark"] .tab { color: #999; }
+  [data-theme="dark"] .tab:hover { background: rgba(255, 255, 255, 0.05); }
+  [data-theme="dark"] .tab.active { color: #8b9cf7; border-bottom-color: #8b9cf7; }
+  [data-theme="dark"] .app-card { background: rgba(40, 40, 60, 0.4); border-color: rgba(255, 255, 255, 0.08); }
+  [data-theme="dark"] .app-card:hover { background: rgba(50, 50, 70, 0.5); }
+  [data-theme="dark"] .app-name { color: #e8e8f0; }
+  [data-theme="dark"] .app-desc { color: #8c8ca0; }
+  [data-theme="dark"] .app-link-label { color: #8c8ca0; }
+  [data-theme="dark"] .empty-tip { color: #6c6c80; }
 
   @media (max-width: 480px) {
-    html {
-      overflow-y: auto;
-      height: auto;
-    }
-
-    body {
-      align-items: flex-start;
-      padding-top: 20px;
-      padding-bottom: 40px;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    .container {
-      padding: 10px;
-      max-width: 100%;
-    }
-
-    .tab-content {
-      padding: 20px;
-    }
-
-    .tab {
-      padding: 12px 8px;
-      font-size: 14px;
-    }
-
-    .brand-name {
-      font-size: 22px;
-    }
-
-    .app-links {
-      gap: 8px;
-    }
-
-    .platform-btn {
-      padding: 10px 8px;
-      font-size: 12px;
-    }
-
-    .download-badge {
-      max-width: 160px;
-    }
-
-    ::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-      display: none;
-    }
-
-    body {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    html { overflow-y: auto; height: auto; }
+    body { align-items: flex-start; padding-top: 20px; padding-bottom: 40px; overflow-y: auto; overflow-x: hidden; }
+    .container { padding: 10px; max-width: 100%; }
+    .container.collapsed { top: 10px; right: 10px; }
+    .tab-content { padding: 20px; }
+    .tab { padding: 12px 8px; font-size: 14px; }
+    .brand-name { font-size: 22px; }
+    .app-links { gap: 8px; }
+    .platform-btn { padding: 10px 8px; font-size: 12px; }
+    .download-badge { max-width: 160px; }
+    ::-webkit-scrollbar { width: 0; height: 0; display: none; }
+    body { -ms-overflow-style: none; scrollbar-width: none; }
   }
   </style>
 </head>
 <body>
   <div class="download-bg" id="downloadBg"></div>
-  <div class="container">
+  <div class="container" id="mainContainer">
     <div class="glass-card">
-      <div class="brand-header">
-        <span class="brand-name">hnyqwq 应用下载中心</span>
-        <span class="brand-sub">hnyqwq 应用下载页面，用于展示各 APP 的正式版和测试版下载链接</span>
-        <button id="collapseBtn" onclick="toggleCollapse()">收起</button>
-        <button id="themeBtn" onclick="switchTheme()" style="position:absolute;top:28px;right:16px;background:none;border:1px solid rgba(0,0,0,0.12);border-radius:6px;padding:4px 12px;font-size:13px;cursor:pointer;color:#5a5a6a;font-family:inherit;"></button>
+      <div class="ctrl-bar">
+        <button class="ctrl-btn" id="collapseBtn" onclick="toggleCollapse()">收起 ▲</button>
+        <button class="ctrl-btn" id="themeBtn" onclick="switchTheme()"></button>
       </div>
-
-      <div class="tabs">
-        <button class="tab active" data-tab="release">正式版</button>
-        <button class="tab" data-tab="beta">测试版</button>
+      <div class="card-inner">
+        <div class="brand-header">
+          <span class="brand-name">hnyqwq 应用下载中心</span>
+          <span class="brand-sub">hnyqwq 应用下载页面，用于展示各 APP 的正式版和测试版下载链接</span>
+        </div>
+        <div class="tabs">
+          <button class="tab active" data-tab="release">正式版</button>
+          <button class="tab" data-tab="beta">测试版</button>
+        </div>
+        <div id="tabRelease" class="tab-content active"></div>
+        <div id="tabBeta" class="tab-content"></div>
       </div>
-
-      <div id="tabRelease" class="tab-content active"></div>
-      <div id="tabBeta" class="tab-content"></div>
     </div>
   </div>
 
@@ -609,8 +402,7 @@
       html += '<div class="app-info">';
       html += '<div class="app-name">' + app.name + '</div>';
       html += '<div class="app-desc">' + app.desc + '</div>';
-      html += '</div>';
-      html += '</div>';
+      html += '</div></div>';
       html += '<div class="app-links">';
 
       for (var j = 0; j < links.length; j++) {
@@ -624,14 +416,12 @@
           html += '</a>';
         } else {
           html += '<a class="platform-btn" href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
-          html += '<img src="' + pIcon + '" alt="">前往测试';
-          html += '</a>';
+          html += '<img src="' + pIcon + '" alt="">前往测试</a>';
         }
         html += '</div>';
       }
 
-      html += '</div>';
-      html += '</div>';
+      html += '</div></div>';
     }
 
     if (!hasContent) {
@@ -642,14 +432,16 @@
   }
 
   function toggleCollapse() {
-    var card = document.querySelector('.glass-card');
+    var c = document.getElementById('mainContainer');
     var btn = document.getElementById('collapseBtn');
-    if (card.classList.contains('collapsed')) {
-      card.classList.remove('collapsed');
-      btn.textContent = '收起';
+    if (c.classList.contains('collapsed')) {
+      c.classList.remove('collapsed');
+      document.body.classList.remove('collapsed-bg');
+      btn.textContent = '收起 ▲';
     } else {
-      card.classList.add('collapsed');
-      btn.textContent = '展开';
+      c.classList.add('collapsed');
+      document.body.classList.add('collapsed-bg');
+      btn.textContent = '展开 ▼';
     }
   }
 
@@ -667,9 +459,7 @@
   function updateThemeBtn() {
     var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     var btn = document.getElementById('themeBtn');
-    if (btn) {
-      btn.textContent = isDark ? '☀ 浅色' : '🌙 深色';
-    }
+    if (btn) btn.textContent = isDark ? '☀ 浅色' : '🌙 深色';
   }
 
   (function(){
