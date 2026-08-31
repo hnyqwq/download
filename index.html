@@ -450,11 +450,19 @@
   }
 
   var portraitBgs = ['images/Vertical.jpg', 'images/show1.jpg', 'images/show2.jpg'];
+  var portraitBgsHD = ['images/showVertical.jpg', 'images/show1.jpg', 'images/show2.jpg'];
   var landscapeBgs = ['images/login-bg.jpg', 'images/Horizontal.jpg'];
+  var landscapeBgsHD = ['images/showlogin-bg.jpg', 'images/Horizontal.jpg'];
+  var bgUpgraded = false;
 
   function switchBg() {
     var bg = document.getElementById('downloadBg');
     var isLandscape = window.matchMedia('(orientation: landscape)').matches;
+    if (!bgUpgraded) {
+      bgUpgraded = true;
+      portraitBgs = portraitBgsHD;
+      landscapeBgs = landscapeBgsHD;
+    }
     var bgs = isLandscape ? landscapeBgs : portraitBgs;
     var current = bg.style.backgroundImage || '';
     var idx = 0;
