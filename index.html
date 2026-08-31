@@ -342,6 +342,28 @@
     <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2025142744号</a>
   </footer>
 
+  <div id="browserGuide" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:rgba(0,0,0,0.85);color:#fff;font-family:'HarmonyOS Sans SC','PingFang SC','Microsoft YaHei',sans-serif;">
+    <div style="position:absolute;top:10px;right:20px;text-align:center;">
+      <svg width="60" height="80" viewBox="0 0 60 80" style="animation:guideArrow 1.5s ease-in-out infinite;">
+        <path d="M30 0 L30 50 M15 40 L30 55 L45 40" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div style="font-size:14px;margin-top:4px;">点击右上角</div>
+    </div>
+    <style>@keyframes guideArrow{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}</style>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:80%;max-width:320px;">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 20px;display:block;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <div style="font-size:20px;font-weight:bold;margin-bottom:12px;">请在浏览器中打开</div>
+      <div style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.75);">
+        点击右上角 <span style="display:inline-block;border:1px solid rgba(255,255,255,0.5);border-radius:4px;padding:1px 8px;font-size:13px;">&#8942;</span> 或 <span style="display:inline-block;border:1px solid rgba(255,255,255,0.5);border-radius:4px;padding:1px 8px;font-size:13px;">&#8226;&#8226;&#8226;</span><br>
+        选择「在浏览器打开」<br>
+        即可正常下载应用
+      </div>
+      <div id="harmonyTip" style="display:none;margin-top:16px;font-size:13px;color:rgba(255,255,255,0.55);border-top:1px solid rgba(255,255,255,0.15);padding-top:12px;">
+        提示：请使用 HarmonyOS NEXT 设备打开
+      </div>
+    </div>
+  </div>
+
   <script>
   var APPS = [
     {
@@ -547,6 +569,17 @@
     var bg = document.getElementById('downloadBg');
     if (bg && window.matchMedia('(orientation: landscape)').matches && Math.random() < 0.5) {
       bg.classList.add('alt');
+    }
+  })();
+
+  (function(){
+    var ua = navigator.userAgent.toLowerCase();
+    var isBlocked = ua.indexOf('micromessenger') !== -1 || ua.indexOf('qq/') !== -1 || ua.indexOf('weibo') !== -1 || ua.indexOf('mqqbrowser') !== -1 && ua.indexOf('qq/') !== -1;
+    if (isBlocked) {
+      document.getElementById('browserGuide').style.display = 'block';
+      if (ua.indexOf('harmonyos') === -1) {
+        document.getElementById('harmonyTip').style.display = 'block';
+      }
     }
   })();
   </script>
