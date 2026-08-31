@@ -1,6 +1,6 @@
-# 星河应用下载中心 - hnyqwq
+# hnyqwq 应用下载中心
 
-星河应用下载页面，用于展示各 APP 的正式版和测试版下载链接。
+hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版和测试版下载链接。
 
 网站地址：[download.hnyqwq.cn](https://download.hnyqwq.cn)
 
@@ -19,8 +19,12 @@
 - 磨砂玻璃 UI 风格，与[星河通行证](https://user.hnyqwq.cn)设计语言统一
 - HarmonyOS Sans SC 字体
 - 正式版 / 测试版 Tab 切换
-- AppGallery 下载徽章按钮
-- 移动端自适应
+- 响应式布局，小屏单列大屏双列自动排布
+- AppGallery 下载徽章 + AppTest 文字按钮
+- 深色/浅色模式切换，跟随系统实时切换
+- 背景图切换，首次换图后自动升级高清版
+- 收起/展开，收起后进入赏图模式
+- 微信/QQ/微博内置浏览器引导遮罩
 - 纯静态单文件，零依赖，部署简单
 
 ## 配置
@@ -55,14 +59,30 @@ var APPS = [
 | `platform` | 平台名称，决定显示的平台图标（含"AppTest"显示 AppTest 图标，否则显示 AppGallery 图标） |
 | `url` | 跳转链接 |
 
-> 下载徽章根据当前主题自动选择：浅色模式使用 `baji2.png`，深色模式使用 `baji1.png`，无需手动配置。 |
+> 正式版下载徽章根据当前主题自动选择：浅色模式使用 `baji2.png`，深色模式使用 `baji1.png`。测试版使用文字按钮，无需手动配置。
 
-### 图片资源
+### 背景图
+
+默认背景图（低清）：
+
+| 方向 | 文件 |
+|---|---|
+| 竖屏 | `Vertical.jpg`、`login-bg2.jpg` |
+| 横屏 | `login-bg.jpg`、`Horizontal.jpg` |
+
+点击换图后自动升级为高清版：
+
+| 方向 | 文件 |
+|---|---|
+| 竖屏 | `showVertical.jpg`、`show1.jpg`、`show2.jpg` |
+| 横屏 | `showlogin-bg.jpg`、`show3.jpg`、`showHorizontal.jpg` |
+
+### 其他图片资源
 
 | 文件 | 说明 |
 |---|---|
-| `baji1.png` | 正式版下载徽章（前往 AppGallery 下载） |
-| `baji2.png` | 测试版下载徽章（AppTest 邀请测试） |
+| `baji1.png` | 正式版下载徽章（深色模式） |
+| `baji2.png` | 正式版下载徽章（浅色模式） |
 | `XHTB.png` | 星河工具盒图标 |
 | `video.png` | 云影工具屋图标 |
 | `metro.png` | 轨交查询指南图标 |
@@ -70,9 +90,6 @@ var APPS = [
 | `videoyfw.png` | 云影工具屋（元服务）图标 |
 | `AppGallery.png` | AppGallery 平台图标 |
 | `AppTest.png` | AppTest 平台图标 |
-| `Vertical.jpg` | 竖屏背景图 |
-| `Horizontal.jpg` | 横屏背景图 |
-| `login-bg.jpg` | 横屏默认背景图 |
 
 ## 部署
 
@@ -83,5 +100,3 @@ var APPS = [
 ## 相关项目
 
 - [星河通行证](https://gitee.com/hnyqwq/user-auth-api)（私密） — 统一认证平台
-
-
