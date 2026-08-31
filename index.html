@@ -96,6 +96,7 @@
   .brand-header {
     text-align: center;
     padding: 28px 30px 16px;
+    position: relative;
   }
 
   .brand-name {
@@ -283,6 +284,68 @@
     color: rgba(255, 255, 255, 0.95);
   }
 
+  [data-theme="dark"] .download-bg {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    filter: none;
+  }
+
+  [data-theme="dark"] .glass-card {
+    background: rgba(30, 30, 50, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  [data-theme="dark"] .brand-name {
+    color: #e8e8f0;
+  }
+
+  [data-theme="dark"] .brand-sub {
+    color: #8c8ca0;
+  }
+
+  [data-theme="dark"] #themeBtn {
+    color: #b0b0c0;
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  [data-theme="dark"] .tabs {
+    background: rgba(40, 40, 60, 0.5);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  [data-theme="dark"] .tab {
+    color: #999;
+  }
+
+  [data-theme="dark"] .tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  [data-theme="dark"] .tab.active {
+    color: #8b9cf7;
+    border-bottom-color: #8b9cf7;
+  }
+
+  [data-theme="dark"] .app-card {
+    background: rgba(40, 40, 60, 0.4);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  [data-theme="dark"] .app-card:hover {
+    background: rgba(50, 50, 70, 0.5);
+  }
+
+  [data-theme="dark"] .app-name {
+    color: #e8e8f0;
+  }
+
+  [data-theme="dark"] .app-desc {
+    color: #8c8ca0;
+  }
+
+  [data-theme="dark"] .empty-tip {
+    color: #6c6c80;
+  }
+
   @media (max-width: 480px) {
     html {
       overflow-y: auto;
@@ -348,6 +411,7 @@
       <div class="brand-header">
         <span class="brand-name">hnyqwq 应用下载中心</span>
         <span class="brand-sub">hnyqwq 应用下载页面，用于展示各 APP 的正式版和测试版下载链接</span>
+        <button id="themeBtn" onclick="switchTheme()" style="position:absolute;top:28px;right:30px;background:none;border:1px solid rgba(0,0,0,0.12);border-radius:6px;padding:4px 12px;font-size:13px;cursor:pointer;color:#5a5a6a;font-family:inherit;"></button>
       </div>
 
       <div class="tabs">
@@ -371,10 +435,10 @@
       icon: "images/XHTB.png",
       desc: "鸿蒙便捷分享应用，支持链接/文本/图片/视频自定义分享，碰一碰与隔空投送跨设备传输",
       release: [
-        { badge: "images/baji1.png", url: "https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq" }
+        { platform: "华为应用市场", url: "https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq" }
       ],
       beta: [
-        { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/8q2ifpJx0Qz" }
+        { platform: "AppTest 邀请测试", url: "https://appgallery.huawei.com/apptest/8q2ifpJx0Qz" }
       ]
     },
     {
@@ -382,10 +446,10 @@
       icon: "images/video.png",
       desc: "HarmonyOS 视频播放器，支持网络/本地视频播放、网页视频提取、碰一碰分享、扫码输入、OCR文字识别等",
       release: [
-        { badge: "images/baji1.png", url: "https://appgallery.huawei.com/app/detail?id=com.hny.video" }
+        { platform: "华为应用市场", url: "https://appgallery.huawei.com/app/detail?id=com.hny.video" }
       ],
       beta: [
-        { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/7bALvBIvIby" }
+        { platform: "AppTest 邀请测试", url: "https://appgallery.huawei.com/apptest/7bALvBIvIby" }
       ]
     },
     {
@@ -393,10 +457,10 @@
       icon: "images/metro.png",
       desc: "专为成都地铁乘客打造的 HarmonyOS 原生出行 App，提供线路查询、站点详情、路线规划、附近站点定位等功能",
       release: [
-        { badge: "images/baji1.png", url: "https://appgallery.huawei.com/app/detail?id=yylx.hnyqwq.metro" }
+        { platform: "华为应用市场", url: "https://appgallery.huawei.com/app/detail?id=yylx.hnyqwq.metro" }
       ],
       beta: [
-        { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/4uQpMlTjyh5" }
+        { platform: "AppTest 邀请测试", url: "https://appgallery.huawei.com/apptest/4uQpMlTjyh5" }
       ]
     },
     {
@@ -404,10 +468,10 @@
       icon: "images/metroyfw.png",
       desc: "专为成都地铁乘客打造的 HarmonyOS 原生出行 App 元服务版，提供线路查询、站点详情、路线规划等功能",
       release: [
-        { badge: "images/baji1.png", url: "https://h5hosting-drcn.dbankcdn.cn/cch5/ScenarizedDist/filePage/dist/index.html" }
+        { platform: "华为服务卡片", url: "https://h5hosting-drcn.dbankcdn.cn/cch5/ScenarizedDist/filePage/dist/index.html" }
       ],
       beta: [
-        { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/97HN26SIItX" }
+        { platform: "AppTest 邀请测试", url: "https://appgallery.huawei.com/apptest/97HN26SIItX" }
       ]
     },
     {
@@ -415,16 +479,18 @@
       icon: "images/videoyfw.png",
       desc: "HarmonyOS 视频播放器元服务版，支持网络/本地视频播放、扫码输入、语音转文字等",
       release: [
-        { badge: "images/baji1.png", url: "https://hoas.drcn.agconnect.link/d499b2ab6cce532a602a2d55a93d66b3a3c371573bc3251790e81b84481f2309" }
+        { platform: "华为服务卡片", url: "https://hoas.drcn.agconnect.link/d499b2ab6cce532a602a2d55a93d66b3a3c371573bc3251790e81b84481f2309" }
       ],
       beta: [
-        { badge: "images/baji2.png", url: "https://appgallery.huawei.com/apptest/52fRvA7p5Ow" }
+        { platform: "AppTest 邀请测试", url: "https://appgallery.huawei.com/apptest/52fRvA7p5Ow" }
       ]
     }
   ];
 
   function renderApps(type) {
     var container = document.getElementById(type === 'release' ? 'tabRelease' : 'tabBeta');
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    var badgeSrc = isDark ? 'images/baji1.png' : 'images/baji2.png';
     var hasContent = false;
     var html = '';
 
@@ -446,22 +512,9 @@
 
       for (var j = 0; j < links.length; j++) {
         var link = links[j];
-        if (link.badge) {
-          html += '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
-          html += '<img class="download-badge" src="' + link.badge + '" alt="下载">';
-          html += '</a>';
-        } else {
-          var svgIcon = SVG_ICONS[link.icon] || SVG_ICONS.generic;
-          var borderColor = link.color ? 'rgba(' + hexToRgb(link.color) + ',0.3)' : 'rgba(0,0,0,0.08)';
-          var hoverColor = link.color ? link.color : '#333';
-          html += '<a class="platform-btn" href="' + link.url + '" target="_blank" rel="noopener noreferrer" ';
-          html += 'style="border-color:' + borderColor + ';color:' + (link.color || '#333') + '" ';
-          html += 'onmouseenter="this.style.borderColor=\'' + hoverColor + '\';this.style.background=\'rgba(' + hexToRgb(hoverColor) + ',0.08)\'" ';
-          html += 'onmouseleave="this.style.borderColor=\'' + borderColor + '\';this.style.background=\'rgba(255,255,255,0.5)\'">';
-          html += svgIcon;
-          html += '<span>' + link.platform + '</span>';
-          html += '</a>';
-        }
+        html += '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
+        html += '<img class="download-badge" src="' + badgeSrc + '" alt="' + link.platform + '">';
+        html += '</a>';
       }
 
       html += '</div>';
@@ -475,12 +528,35 @@
     container.innerHTML = html;
   }
 
-  function hexToRgb(hex) {
-    var r = parseInt(hex.slice(1, 3), 16);
-    var g = parseInt(hex.slice(3, 5), 16);
-    var b = parseInt(hex.slice(5, 7), 16);
-    return r + ',' + g + ',' + b;
+  function switchTheme() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    var newTheme = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    renderApps('release');
+    renderApps('beta');
+    updateThemeBtn();
   }
+
+  function updateThemeBtn() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    var btn = document.getElementById('themeBtn');
+    if (btn) {
+      btn.textContent = isDark ? '☀ 浅色' : '🌙 深色';
+    }
+  }
+
+  (function(){
+    var pref = localStorage.getItem('theme');
+    if (pref) {
+      document.documentElement.setAttribute('data-theme', pref);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
 
   document.querySelectorAll('.tab').forEach(function(tab) {
     tab.addEventListener('click', function() {
@@ -494,6 +570,7 @@
 
   renderApps('release');
   renderApps('beta');
+  updateThemeBtn();
 
   (function(){
     var bg = document.getElementById('downloadBg');
