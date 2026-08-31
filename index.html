@@ -257,6 +257,32 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
+  .app-link-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .app-link-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #5a5a6a;
+  }
+
+  [data-theme="dark"] .app-link-label {
+    color: #8c8ca0;
+  }
+
+  .app-link-label img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
   .empty-tip {
     text-align: center;
     color: #8c8c9a;
@@ -512,9 +538,13 @@
 
       for (var j = 0; j < links.length; j++) {
         var link = links[j];
+        var pIcon = link.platform.indexOf('AppTest') !== -1 ? 'images/AppTest.png' : 'images/AppGallery.png';
+        html += '<div class="app-link-item">';
+        html += '<div class="app-link-label"><img src="' + pIcon + '" alt="">' + link.platform + '</div>';
         html += '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
         html += '<img class="download-badge" src="' + badgeSrc + '" alt="' + link.platform + '">';
         html += '</a>';
+        html += '</div>';
       }
 
       html += '</div>';
