@@ -101,12 +101,6 @@
     overflow: hidden;
   }
 
-  .container.collapsed .ctrl-bar {
-    justify-content: center;
-    padding: 6px 8px;
-    gap: 4px;
-  }
-
   .container.collapsed .ctrl-btn {
     padding: 4px 8px;
     font-size: 12px;
@@ -114,8 +108,31 @@
 
   .brand-header {
     text-align: center;
-    padding: 28px 30px 16px;
+    padding: 20px 30px 16px;
     position: relative;
+  }
+
+  .header-btns {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    display: flex;
+    gap: 4px;
+    z-index: 2;
+  }
+
+  .container.collapsed .header-btns {
+    position: static;
+    justify-content: center;
+    padding: 6px 8px;
+  }
+
+  #bgBtn { display: none; }
+  .container.collapsed #bgBtn { display: inline-flex; }
+
+  .container.collapsed .ctrl-btn {
+    padding: 4px 8px;
+    font-size: 12px;
   }
 
   .brand-name {
@@ -225,21 +242,6 @@
 
   .empty-tip { text-align: center; color: #8c8c9a; padding: 40px 0; font-size: 14px; }
 
-  #bgBtn {
-    display: none;
-  }
-
-  .container.collapsed #bgBtn {
-    display: inline-block;
-  }
-
-  .ctrl-bar {
-    display: flex;
-    gap: 6px;
-    padding: 8px 12px;
-    justify-content: flex-end;
-  }
-
   .ctrl-btn {
     background: none;
     border: 1px solid rgba(0, 0, 0, 0.12);
@@ -318,7 +320,7 @@
   <div class="download-bg" id="downloadBg"></div>
   <div class="container" id="mainContainer">
     <div class="glass-card">
-      <div class="ctrl-bar">
+      <div class="header-btns">
         <button class="ctrl-btn" id="bgBtn" onclick="switchBg()"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> 换图</button>
         <button class="ctrl-btn" id="collapseBtn" onclick="toggleCollapse()"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg> 收起</button>
         <button class="ctrl-btn" id="themeBtn" onclick="switchTheme()"></button>
