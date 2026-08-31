@@ -449,7 +449,7 @@
         var link = links[j];
         var pIcon = link.platform.indexOf('AppTest') !== -1 ? 'images/AppTest.png' : 'images/AppGallery.png';
         html += '<div class="app-link-item">';
-        html += '<div class="app-link-label"><img src="' + pIcon + '" alt="">获取：' + link.platform + '</div>';
+        html += '<div class="app-link-label"><img src="' + pIcon + '" alt="">获取：' + link.platform + '（需HarmonyOS 6.1及以上系统版本）</div>';
         if (type === 'release') {
           html += '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
           html += '<img class="download-badge" src="' + badgeSrc + '" alt="' + link.platform + '">';
