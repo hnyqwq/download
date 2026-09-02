@@ -585,8 +585,9 @@
   })();
 
   (function(){
-    var params = new URLSearchParams(window.location.search);
-    var redirect = params.get('redirect');
+    var hashRedirect = window.location.hash && window.location.hash.indexOf('redirect=') === 1;
+    var paramRedirect = new URLSearchParams(window.location.search).get('redirect');
+    var redirect = hashRedirect ? decodeURIComponent(window.location.hash.slice(10)) : paramRedirect;
     var ua = navigator.userAgent.toLowerCase();
     var isBlocked = ua.indexOf('micromessenger') !== -1 || ua.indexOf('qq/') !== -1 || ua.indexOf('weibo') !== -1;
 
@@ -612,9 +613,7 @@
           e.stopPropagation();
           var url = target.getAttribute('href');
           if (url) {
-            var newUrl = window.location.origin + window.location.pathname + '?redirect=' + encodeURIComponent(url);
-            window.location.href = newUrl;
-            return;
+            location.hash = 'redirect=' + encodeURIComponent(url);
           }
           document.getElementById('browserGuide').style.display = 'block';
         }
