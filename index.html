@@ -585,14 +585,12 @@
   })();
 
   (function(){
-    var hashRedirect = window.location.hash && window.location.hash.indexOf('redirect=') === 1;
     var paramRedirect = new URLSearchParams(window.location.search).get('redirect');
-    var redirect = hashRedirect ? decodeURIComponent(window.location.hash.slice(10)) : paramRedirect;
     var ua = navigator.userAgent.toLowerCase();
     var isBlocked = ua.indexOf('micromessenger') !== -1 || ua.indexOf('qq/') !== -1 || ua.indexOf('weibo') !== -1;
 
-    if (redirect && !isBlocked) {
-      window.location.href = redirect;
+    if (paramRedirect && !isBlocked) {
+      window.location.href = paramRedirect;
       return;
     }
 
@@ -601,6 +599,10 @@
     if (isBlocked) {
       if (noHarmony) {
         document.getElementById('harmonyTip').style.display = 'block';
+      }
+
+      if (paramRedirect) {
+        document.getElementById('browserGuide').style.display = 'block';
       }
 
       document.addEventListener('click', function(e) {
@@ -613,15 +615,11 @@
           e.stopPropagation();
           var url = target.getAttribute('href');
           if (url) {
-            location.hash = 'redirect=' + encodeURIComponent(url);
+            var newUrl = window.location.origin + window.location.pathname + '?redirect=' + encodeURIComponent(url);
+            window.location.href = newUrl;
           }
-          document.getElementById('browserGuide').style.display = 'block';
         }
       }, true);
-
-      if (redirect) {
-        document.getElementById('browserGuide').style.display = 'block';
-      }
     }
   })();
   </script>
