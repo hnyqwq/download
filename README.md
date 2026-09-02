@@ -8,7 +8,7 @@ hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版和测试�
 
 | 应用 | 类型 | 正式版 | 测试版 | 源码 |
 |---|---|---|---|---|
-| 星河工具盒 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/8q2ifpJx0Qz) | [GitHub](https://github.com/hnyqwq/hny) | [Gitee](https://gitee.com/hnyqwq/XHTB) | [GitCode](https://gitcode.com/hnyqwq/XHTB)（私密） |
+| 星河工具盒 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/8q2ifpJx0Qz) | [GitHub](https://github.com/hnyqwq/hny) \| [Gitee](https://gitee.com/hnyqwq/XHTB) \| [GitCode](https://gitcode.com/hnyqwq/XHTB)（私密） |
 | 云影工具屋 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=com.hny.video) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/7bALvBIvIby) | [GitHub](https://github.com/hnyqwq/video) \| [Gitee](https://gitee.com/hnyqwq/video) \| [GitCode](https://gitcode.com/hnyqwq/video)（私密） |
 | 轨交查询指南 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hnyqwq.metro) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/4uQpMlTjyh5) | [GitHub](https://github.com/hnyqwq/metro) \| [Gitee](https://gitee.com/hnyqwq/metro) \| [GitCode](https://gitcode.com/hnyqwq/metro)（私密） |
 | 轨交查询指南（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/1f33800aef81874fb9abc8ede95723a5e6443a6c61d5e25c90d4e9adac2006b5) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/97HN26SIItX) | [GitHub](https://github.com/hnyqwq/Metroyfw) \| [Gitee](https://gitee.com/hnyqwq/Metroyfw) \| [GitCode](https://gitcode.com/hnyqwq/Metroyfw)（私密） |
