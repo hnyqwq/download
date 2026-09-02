@@ -404,7 +404,7 @@
       icon: "images/metroyfw.png",
       desc: "专为成都地铁乘客打造的 HarmonyOS 原生出行 App 元服务版，提供线路查询、站点详情、路线规划等功能",
       release: [
-        { platform: "华为服务卡片", url: "https://h5hosting-drcn.dbankcdn.cn/cch5/ScenarizedDist/filePage/dist/index.html" }
+        { platform: "华为服务卡片", url: "https://hoas.drcn.agconnect.link/1f33800aef81874fb9abc8ede95723a5e6443a6c61d5e25c90d4e9adac2006b5" }
       ],
       beta: [
         { platform: "AppTest 邀请测试", url: "https://appgallery.huawei.com/apptest/97HN26SIItX" }
@@ -587,13 +587,14 @@
   (function(){
     var params = new URLSearchParams(window.location.search);
     var redirect = params.get('redirect');
-    if (redirect) {
+    var ua = navigator.userAgent.toLowerCase();
+    var isBlocked = ua.indexOf('micromessenger') !== -1 || ua.indexOf('qq/') !== -1 || ua.indexOf('weibo') !== -1;
+
+    if (redirect && !isBlocked) {
       window.location.href = redirect;
       return;
     }
 
-    var ua = navigator.userAgent.toLowerCase();
-    var isBlocked = ua.indexOf('micromessenger') !== -1 || ua.indexOf('qq/') !== -1 || ua.indexOf('weibo') !== -1;
     var noHarmony = ua.indexOf('harmonyos') === -1;
 
     if (isBlocked) {
@@ -612,11 +613,16 @@
           var url = target.getAttribute('href');
           if (url) {
             var newUrl = window.location.origin + window.location.pathname + '?redirect=' + encodeURIComponent(url);
-            history.replaceState(null, '', newUrl);
+            window.location.href = newUrl;
+            return;
           }
           document.getElementById('browserGuide').style.display = 'block';
         }
       }, true);
+
+      if (redirect) {
+        document.getElementById('browserGuide').style.display = 'block';
+      }
     }
   })();
   </script>
