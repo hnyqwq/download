@@ -585,10 +585,10 @@
   })();
 
   (function(){
-    var pending = localStorage.getItem('pendingUrl');
-    if (pending) {
-      localStorage.removeItem('pendingUrl');
-      window.location.href = pending;
+    var params = new URLSearchParams(window.location.search);
+    var redirect = params.get('redirect');
+    if (redirect) {
+      window.location.href = redirect;
       return;
     }
 
@@ -611,7 +611,8 @@
           e.stopPropagation();
           var url = target.getAttribute('href');
           if (url) {
-            localStorage.setItem('pendingUrl', url);
+            var newUrl = window.location.origin + window.location.pathname + '?redirect=' + encodeURIComponent(url);
+            history.replaceState(null, '', newUrl);
           }
           document.getElementById('browserGuide').style.display = 'block';
         }
