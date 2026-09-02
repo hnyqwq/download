@@ -585,42 +585,6 @@
   })();
 
   (function(){
-    var paramRedirect = new URLSearchParams(window.location.search).get('redirect');
-    var ua = navigator.userAgent.toLowerCase();
-    var isBlocked = ua.indexOf('micromessenger') !== -1 || ua.indexOf('qq/') !== -1 || ua.indexOf('weibo') !== -1;
-
-    if (paramRedirect && !isBlocked) {
-      window.location.href = paramRedirect;
-      return;
-    }
-
-    var noHarmony = ua.indexOf('harmonyos') === -1;
-
-    if (isBlocked) {
-      if (noHarmony) {
-        document.getElementById('harmonyTip').style.display = 'block';
-      }
-
-      if (paramRedirect) {
-        document.getElementById('browserGuide').style.display = 'block';
-      }
-
-      document.addEventListener('click', function(e) {
-        var target = e.target;
-        while (target && target.tagName !== 'A') {
-          target = target.parentElement;
-        }
-        if (target && (target.classList.contains('platform-btn') || target.querySelector('.download-badge') || target.querySelector('img.download-badge'))) {
-          e.preventDefault();
-          e.stopPropagation();
-          var url = target.getAttribute('href');
-          if (url) {
-            var newUrl = window.location.origin + window.location.pathname + '?redirect=' + encodeURIComponent(url);
-            window.location.href = newUrl;
-          }
-        }
-      }, true);
-    }
   })();
   </script>
 </body>
