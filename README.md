@@ -18,7 +18,8 @@ hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版和测试�
 
 - 磨砂玻璃 UI 风格，与[星河通行证](https://user.hnyqwq.cn)设计语言统一
 - HarmonyOS Sans SC 字体
-- 正式版 / 测试版 Tab 切换
+- 正式版 / 测试版 / 安卓版 Tab 切换，支持 `?tab=` 参数直链
+- 安卓版 Tab 实时检测更新：`?v=` 传入当前版本，自动比较并提示新版本，读取 `apks/metro/update.json`
 - 响应式布局，小屏单列大屏双列自动排布
 - AppGallery 下载徽章 + AppTest 文字按钮
 - 深色/浅色模式切换，跟随系统实时切换
@@ -75,6 +76,66 @@ var APPS = [
 |---|---|
 | 竖屏 | `showVertical.jpg`、`show1.jpg`、`show2.jpg` |
 | 横屏 | `showlogin-bg.jpg`、`show3.jpg`、`showHorizontal.jpg` |
+
+### 安卓版更新检测
+
+安卓版 Tab 从 `apks/metro/update.json` 读取版本信息，APK 文件放在服务器 `apks/metro/` 目录（已 gitignore，不发仓库）。
+
+发版步骤：修改 `update.json` 中的版本号、日期、更新内容，上传新 APK 到服务器 `apks/metro/`。
+
+```json
+{
+  "app": "轨交查询指南",
+  "platform": "Android",
+  "latest": {
+    "versionName": "1.3.2.1",
+    "versionCode": 10302001,
+    "date": "2026-09-08",
+    "apk": "apks/metro/metro-1.3.2.1.apk",
+    "size": "12.3 MB",
+    "notes": ["更新内容一", "更新内容二"]
+  }
+}
+```
+
+| 字段 | 说明 |
+|---|---|
+| `versionName` | 最新版本号，用于与 `?v=` 参数比较 |
+| `versionCode` | 数字版本号，可选 |
+| `date` | 发布日期，可选 |
+| `apk` | APK 下载链接，相对站点根目录 |
+| `size` | 包大小文案，可选 |
+| `notes` | 更新内容，一行一个元素，支持换行排版（也可用单个字符串按 `\n` 拆分） |
+
+`notes` 排版规则（按每行首字符识别）：
+
+| 行首 | 渲染效果 |
+|---|---|
+| `【xxx】` | 加粗小节标题 |
+| `- xxx` | 列表项 |
+| `> xxx` | 缩进子行，附着到上一个列表项下 |
+| 其他 | 普通段落 |
+| 空行 | 忽略（间距由 CSS 控制） |
+
+```json
+"notes": [
+  "【新增】",
+  "- 新功能描述",
+  "> 功能补充说明第一行",
+  "> 功能补充说明第二行",
+  "- 修复某问题",
+  "结尾普通段落"
+]
+```
+
+链接参数：
+
+| 参数 | 说明 |
+|---|---|
+| `?tab=android` | 直达安卓版 Tab |
+| `?v=1.3.2.1` | 传入当前已装版本，页面自动比较并显示"发现新版本 / 已是最新" |
+
+App 内检测更新示例：`https://download.hnyqwq.cn/?tab=android&v=` + 当前 versionName。
 
 ### 其他图片资源
 

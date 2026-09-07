@@ -243,6 +243,28 @@
 
   .empty-tip { text-align: center; color: #8c8c9a; padding: 40px 0; font-size: 14px; }
 
+  .update-meta { font-size: 12px; color: #8c8c9a; margin-top: 2px; }
+
+  .update-banner {
+    margin: 14px 0 4px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    background: rgba(102, 126, 234, 0.12);
+    color: #4a5ad0;
+  }
+
+  .update-banner.ok { background: rgba(52, 199, 89, 0.12); color: #2e8b57; }
+
+  .update-notes { margin: 10px 0 0; padding-left: 18px; font-size: 13px; color: #5a5a6a; }
+  .update-notes li { margin: 4px 0; }
+
+  .notes-section { margin: 12px 0 2px; font-weight: 600; font-size: 13px; color: #1a1a2e; }
+  .note-sub { margin-top: 4px; font-size: 12px; color: #8c8c9a; }
+  .note-para { margin: 10px 0 0; font-size: 13px; color: #5a5a6a; }
+
+  #tabAndroid .app-card { grid-column: 1 / -1; }
+
   .ctrl-btn {
     background: none;
     border: 1px solid rgba(0, 0, 0, 0.12);
@@ -305,6 +327,12 @@
   [data-theme="dark"] .app-desc { color: #d0d0e0; }
   [data-theme="dark"] .app-link-label { color: #8c8ca0; }
   [data-theme="dark"] .empty-tip { color: #6c6c80; }
+  [data-theme="dark"] .update-meta { color: #6c6c80; }
+  [data-theme="dark"] .update-banner { background: rgba(139, 156, 247, 0.15); color: #8b9cf7; }
+  [data-theme="dark"] .update-banner.ok { background: rgba(52, 199, 89, 0.15); color: #5bcf85; }
+  [data-theme="dark"] .update-notes { color: #8c8ca0; }
+  [data-theme="dark"] .notes-section { color: #e8e8f0; }
+  [data-theme="dark"] .note-para { color: #d0d0e0; }
 
   @media (max-width: 480px) {
     html { overflow-y: auto; height: auto; }
@@ -334,14 +362,16 @@
       <div class="card-inner">
         <div class="brand-header">
           <span class="brand-name">hnyqwq 应用下载中心</span>
-          <span class="brand-sub">hnyqwq 应用下载页面，用于展示各 APP 的正式版和测试版下载链接</span>
+          <span class="brand-sub">hnyqwq 应用下载页面，用于展示各 APP 的正式版、测试版和安卓版下载链接</span>
         </div>
         <div class="tabs">
           <button class="tab active" data-tab="release">正式版</button>
           <button class="tab" data-tab="beta">测试版</button>
+          <button class="tab" data-tab="android">安卓版</button>
         </div>
         <div id="tabRelease" class="tab-content active"></div>
         <div id="tabBeta" class="tab-content"></div>
+        <div id="tabAndroid" class="tab-content"></div>
       </div>
     </div>
   </div>
@@ -458,6 +488,98 @@
     container.innerHTML = html;
   }
 
+  var ANDROID_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="#3DDC84"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg>';
+
+  function escHtml(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function cmpVersion(a, b) {
+    var pa = String(a).split('.');
+    var pb = String(b).split('.');
+    var len = Math.max(pa.length, pb.length);
+    for (var i = 0; i < len; i++) {
+      var na = parseInt(pa[i], 10) || 0;
+      var nb = parseInt(pb[i], 10) || 0;
+      if (na !== nb) return na > nb ? 1 : -1;
+    }
+    return 0;
+  }
+
+  function renderNotes(notes) {
+    if (typeof notes === 'string') notes = notes.split(/\r?\n/);
+    var html = '';
+    var inList = false;
+    var inItem = false;
+    for (var i = 0; i < notes.length; i++) {
+      var line = String(notes[i] == null ? '' : notes[i]).trim();
+      if (!line) continue;
+      if (line.charAt(0) === '【') {
+        if (inList) { html += '</ul>'; inList = false; }
+        html += '<div class="notes-section">' + escHtml(line) + '</div>';
+        inItem = false;
+      } else if (line.charAt(0) === '-') {
+        if (!inList) { html += '<ul class="update-notes">'; inList = true; }
+        html += '<li>' + escHtml(line.replace(/^-+\s*/, '')) + '</li>';
+        inItem = true;
+      } else if (line.charAt(0) === '>') {
+        var sub = '<div class="note-sub">' + escHtml(line.replace(/^>+\s*/, '')) + '</div>';
+        if (inList && inItem) {
+          html = html.replace(/<\/li>$/, sub + '</li>');
+        } else {
+          if (inList) { html += '</ul>'; inList = false; }
+          html += sub;
+        }
+      } else {
+        if (inList) { html += '</ul>'; inList = false; }
+        html += '<p class="note-para">' + escHtml(line) + '</p>';
+        inItem = false;
+      }
+    }
+    if (inList) html += '</ul>';
+    return html;
+  }
+
+  function renderAndroidTab() {
+    var container = document.getElementById('tabAndroid');
+    var current = new URLSearchParams(window.location.search).get('v');
+    fetch('apks/metro/update.json?t=' + Date.now())
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(new Error(r.status)); })
+      .then(function(data) {
+        var v = data && data.latest;
+        if (!v || !v.versionName || !v.apk) return Promise.reject(new Error('bad manifest'));
+        var html = '<div class="app-card">';
+        html += '<div class="app-header">';
+        html += '<img class="app-icon" src="images/metro.png" alt="轨交查询指南">';
+        html += '<div class="app-info">';
+        html += '<div class="app-name">轨交查询指南 Android 版</div>';
+        html += '<div class="update-meta">最新版本 v' + escHtml(v.versionName)
+          + (v.date ? ' · ' + escHtml(v.date) : '')
+          + (v.size ? ' · ' + escHtml(v.size) : '') + '</div>';
+        html += '</div></div>';
+        if (current) {
+          if (cmpVersion(current, v.versionName) < 0) {
+            html += '<div class="update-banner">发现新版本 v' + escHtml(v.versionName) + '，当前 v' + escHtml(current) + '，建议更新</div>';
+          } else {
+            html += '<div class="update-banner ok">当前 v' + escHtml(current) + ' 已是最新版本</div>';
+          }
+        }
+        if (v.notes && v.notes.length) {
+          html += '<div class="app-link-label" style="margin-top:12px;">更新内容</div>';
+          html += renderNotes(v.notes);
+        }
+        html += '<div class="app-links" style="margin-top:14px;">';
+        html += '<a class="platform-btn" href="' + escHtml(v.apk) + '">' + ANDROID_ICON + '下载 APK</a>';
+        html += '</div>';
+        html += '<div class="update-meta" style="margin-top:10px;">首次安装需在系统设置中允许安装未知来源应用</div>';
+        html += '</div>';
+        container.innerHTML = html;
+      })
+      .catch(function() {
+        container.innerHTML = '<div class="empty-tip">暂无 Android 版本信息</div>';
+      });
+  }
+
   var portraitBgs = ['images/Vertical.jpg', 'images/login-bg2.jpg'];
   var portraitBgsHD = ['images/showVertical.jpg', 'images/show1.jpg', 'images/show2.jpg'];
   var landscapeBgs = ['images/login-bg.jpg', 'images/Horizontal.jpg'];
@@ -550,19 +672,36 @@
     });
   })();
 
+  var TAB_IDS = { release: 'tabRelease', beta: 'tabBeta', android: 'tabAndroid' };
+
+  function activateTab(name, updateUrl) {
+    document.querySelectorAll('.tab').forEach(function(t) {
+      t.classList.toggle('active', t.getAttribute('data-tab') === name);
+    });
+    document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+    document.getElementById(TAB_IDS[name]).classList.add('active');
+    if (updateUrl && window.history && history.replaceState) {
+      var url = new URL(window.location.href);
+      url.searchParams.set('tab', name);
+      history.replaceState(null, '', url);
+    }
+  }
+
   document.querySelectorAll('.tab').forEach(function(tab) {
     tab.addEventListener('click', function() {
-      document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
-      document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
-      tab.classList.add('active');
-      var target = tab.getAttribute('data-tab');
-      document.getElementById(target === 'release' ? 'tabRelease' : 'tabBeta').classList.add('active');
+      activateTab(tab.getAttribute('data-tab'), true);
     });
   });
 
   renderApps('release');
   renderApps('beta');
   updateThemeBtn();
+  renderAndroidTab();
+
+  (function(){
+    var initTab = new URLSearchParams(window.location.search).get('tab');
+    if (initTab && TAB_IDS[initTab]) activateTab(initTab, false);
+  })();
 
   (function(){
     var bg = document.getElementById('downloadBg');
