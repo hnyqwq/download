@@ -264,15 +264,20 @@
   .ctrl-btn:hover { background: rgba(0, 0, 0, 0.04); }
 
   .site-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    position: relative;
     width: 100%;
     text-align: center;
     padding: 12px 0;
     font-size: 13px;
     color: rgba(255, 255, 255, 0.6);
-    z-index: 0;
+    z-index: 1;
+  }
+
+  /* 收起模式：卡片固定到角落，页脚钉在屏幕底部 */
+  body.collapsed-bg .site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
   }
 
   .site-footer a { color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: color 0.2s; }
