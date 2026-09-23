@@ -556,6 +556,7 @@
         html += '<div class="update-meta">最新版本 v' + escHtml(v.versionName)
           + (v.date ? ' · ' + escHtml(v.date) : '')
           + (v.size ? ' · ' + escHtml(v.size) : '') + '</div>';
+        html += '<div class="update-meta" style="margin-top:6px;">首次安装需在系统设置中允许安装未知来源应用</div>';
         html += '</div></div>';
         if (current) {
           if (cmpVersion(current, v.versionName) < 0) {
@@ -571,7 +572,6 @@
         html += '<div class="app-links" style="margin-top:14px;">';
         html += '<a class="platform-btn" href="' + escHtml(v.apk) + '">' + ANDROID_ICON + '下载 APK</a>';
         html += '</div>';
-        html += '<div class="update-meta" style="margin-top:10px;">首次安装需在系统设置中允许安装未知来源应用</div>';
         html += '</div>';
         container.innerHTML = html;
       })
