@@ -556,7 +556,6 @@
         html += '<div class="update-meta">最新版本 v' + escHtml(v.versionName)
           + (v.date ? ' · ' + escHtml(v.date) : '')
           + (v.size ? ' · ' + escHtml(v.size) : '') + '</div>';
-        html += '<div class="update-meta" style="margin-top:6px;">首次安装需在系统设置中允许安装未知来源应用</div>';
         html += '</div></div>';
         if (current) {
           if (cmpVersion(current, v.versionName) < 0) {
@@ -567,11 +566,23 @@
         }
         if (v.notes && v.notes.length) {
           html += '<div class="app-link-label" style="margin-top:12px;">更新内容</div>';
-          html += renderNotes(v.notes);
+          // 按分隔行（如 "1.5.0.0 2026-09-23"）拆分：前段=当前版本公告，后段=历史版本公告
+          var splitIdx = -1;
+          for (var ni = 0; ni < v.notes.length; ni++) {
+            if (/^\d+\.\d+\.\d+\.\d+\s+\d{4}-\d{2}-\d{2}$/.test(String(v.notes[ni]).trim())) { splitIdx = ni; break; }
+          }
+          var currentNotes = splitIdx >= 0 ? v.notes.slice(0, splitIdx) : v.notes;
+          var olderNotes = splitIdx >= 0 ? v.notes.slice(splitIdx) : [];
+          html += renderNotes(currentNotes);
+          // 下载按钮与安装说明：位于当前版本公告与历史版本公告之间
+          html += '<div class="app-links" style="margin-top:14px;">';
+          html += '<a class="platform-btn" href="' + escHtml(v.apk) + '">' + ANDROID_ICON + '下载 APK</a>';
+          html += '</div>';
+          html += '<div class="update-meta" style="margin-top:8px;">首次安装需在系统设置中允许安装未知来源应用</div>';
+          if (olderNotes.length) {
+            html += renderNotes(olderNotes);
+          }
         }
-        html += '<div class="app-links" style="margin-top:14px;">';
-        html += '<a class="platform-btn" href="' + escHtml(v.apk) + '">' + ANDROID_ICON + '下载 APK</a>';
-        html += '</div>';
         html += '</div>';
         container.innerHTML = html;
       })
