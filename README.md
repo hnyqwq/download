@@ -79,20 +79,26 @@ var APPS = [
 
 ### 安卓版更新检测
 
-安卓版 Tab 从 `apks/metro/update.json` 读取版本信息，APK 文件放在服务器 `apks/metro/` 目录（已 gitignore，不发仓库）。
+安卓版 Tab 从 `apks/metro/update.json` 读取版本信息。
 
-发版步骤：修改 `update.json` 中的版本号、日期、更新内容，上传新 APK 到服务器 `apks/metro/`。
+包体（APK）上传到服务器 `apps/` 目录（app.hnyqwq.cn，已 gitignore，不发仓库），下载链接**固定**为：
+
+```
+https://app.hnyqwq.cn/apps/app-release.apk
+```
+
+发版步骤：上传新 APK 到服务器 `apps/` 目录（覆盖 `app-release.apk`），修改 `update.json` 中的版本号、日期、更新内容（链接不用动）。
 
 ```json
 {
   "app": "轨交查询指南",
   "platform": "Android",
   "latest": {
-    "versionName": "1.3.2.1",
-    "versionCode": 10302001,
+    "versionName": "1.5.0.0",
+    "versionCode": 10500000,
     "date": "2026-09-08",
-    "apk": "apks/metro/metro-1.3.2.1.apk",
-    "size": "12.3 MB",
+    "apk": "https://app.hnyqwq.cn/apps/app-release.apk",
+    "size": "",
     "notes": ["更新内容一", "更新内容二"]
   }
 }
@@ -101,9 +107,9 @@ var APPS = [
 | 字段 | 说明 |
 |---|---|
 | `versionName` | 最新版本号，用于与 `?v=` 参数比较 |
-| `versionCode` | 数字版本号，可选 |
+| `versionCode` | 数字版本号，App 内检测更新按此比较，发版时必须递增 |
 | `date` | 发布日期，可选 |
-| `apk` | APK 下载链接，相对站点根目录 |
+| `apk` | APK 下载链接，固定指向 `apps/app-release.apk`，发版只传包不改链接 |
 | `size` | 包大小文案，可选 |
 | `notes` | 更新内容，一行一个元素，支持换行排版（也可用单个字符串按 `\n` 拆分） |
 
