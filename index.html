@@ -387,6 +387,7 @@
       name: "星河工具盒 Xinghe Tool Box",
       icon: "images/XHTB.png",
       desc: "鸿蒙便捷分享应用，支持链接/文本/图片/视频自定义分享，碰一碰与隔空投送跨设备传输",
+      minHarmony: "7",
       release: [
         { platform: "华为应用市场", url: "https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq" }
       ],
@@ -429,6 +430,7 @@
       name: "星河工具盒 Xinghe Tool Box（元服务）",
       icon: "images/XHTByfw.png",
       desc: "一款即点即用的元服务工具箱，无需下载安装，打开即用。提供文本处理、图片工具、网络检测、效率工具、分享预览等实用小工具",
+      minHarmony: "7",
       release: [],
       beta: [
         { platform: "AppTest 邀请测试", url: "https://appgallery.huawei.com/apptest/2jZdmurLRvv" }
@@ -484,7 +486,7 @@
         var link = links[j];
         var pIcon = link.platform.indexOf('AppTest') !== -1 ? 'images/AppTest.png' : 'images/AppGallery.png';
         html += '<div class="app-link-item">';
-        html += '<div class="app-link-label"><img src="' + pIcon + '" alt="">获取：' + link.platform + '（需HarmonyOS 6.1及以上系统版本）</div>';
+        html += '<div class="app-link-label"><img src="' + pIcon + '" alt="">获取：' + link.platform + '（需HarmonyOS ' + (app.minHarmony || '6.1') + '及以上系统版本）</div>';
         if (type === 'release') {
           html += '<a href="' + link.url + '" target="_blank" rel="noopener noreferrer">';
           html += '<img class="download-badge" src="' + badgeSrc + '" alt="' + link.platform + '">';
