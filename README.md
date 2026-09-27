@@ -11,8 +11,10 @@ hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版和测试�
 | 星河工具盒 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/8q2ifpJx0Qz) | [GitHub](https://github.com/hnyqwq/hny) \| [Gitee](https://gitee.com/hnyqwq/XHTB) \| [GitCode](https://gitcode.com/hnyqwq/XHTB)（私密） |
 | 云影工具屋 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=com.hny.video) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/7bALvBIvIby) | [GitHub](https://github.com/hnyqwq/video) \| [Gitee](https://gitee.com/hnyqwq/video) \| [GitCode](https://gitcode.com/hnyqwq/video)（私密） |
 | 轨交查询指南 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hnyqwq.metro) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/4uQpMlTjyh5) | [GitHub](https://github.com/hnyqwq/metro) \| [Gitee](https://gitee.com/hnyqwq/metro) \| [GitCode](https://gitcode.com/hnyqwq/metro)（私密） |
-| 轨交查询指南（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/1f33800aef81874fb9abc8ede95723a5e6443a6c61d5e25c90d4e9adac2006b5) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/97HN26SIItX) | [GitHub](https://github.com/hnyqwq/Metroyfw) \| [Gitee](https://gitee.com/hnyqwq/Metroyfw) \| [GitCode](https://gitcode.com/hnyqwq/Metroyfw)（私密） |
+| 星河通行证 | 应用 | — | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/9XE8nUx2ntl) | — |
+| 星河工具盒（元服务） | 元服务 | — | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/2jZdmurLRvv) | — |
 | 云影工具屋（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/d499b2ab6cce532a602a2d55a93d66b3a3c371573bc3251790e81b84481f2309) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/52fRvA7p5Ow) | [GitHub](https://github.com/hnyqwq/videoyfw) \| [Gitee](https://gitee.com/hnyqwq/videoyfw) \| [GitCode](https://gitcode.com/hnyqwq/videoyfw)（私密） |
+| 轨交查询指南（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/1f33800aef81874fb9abc8ede95723a5e6443a6c61d5e25c90d4e9adac2006b5) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/97HN26SIItX) | [GitHub](https://github.com/hnyqwq/Metroyfw) \| [Gitee](https://gitee.com/hnyqwq/Metroyfw) \| [GitCode](https://gitcode.com/hnyqwq/Metroyfw)（私密） |
 
 ## 特性
 
@@ -152,6 +154,8 @@ App 内检测更新示例：`https://download.hnyqwq.cn/?tab=android&v=` + 当�
 | `XHTB.png` | 星河工具盒图标 |
 | `video.png` | 云影工具屋图标 |
 | `metro.png` | 轨交查询指南图标 |
+| `hny.png` | 星河通行证图标 |
+| `XHTByfw.png` | 星河工具盒（元服务）图标 |
 | `metroyfw.png` | 轨交查询指南（元服务）图标 |
 | `videoyfw.png` | 云影工具屋（元服务）图标 |
 | `AppGallery.png` | AppGallery 平台图标 |
