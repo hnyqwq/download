@@ -6,15 +6,15 @@ hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版和测试�
 
 ## 包含应用
 
-| 应用 | 类型 | 正式版 | 测试版 | 源码 |
-|---|---|---|---|---|
-| 星河工具盒 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/8q2ifpJx0Qz) | [GitHub](https://github.com/hnyqwq/hny) \| [Gitee](https://gitee.com/hnyqwq/XHTB) \| [GitCode](https://gitcode.com/hnyqwq/XHTB)（私密） |
-| 云影工具屋 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=com.hny.video) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/7bALvBIvIby) | [GitHub](https://github.com/hnyqwq/video) \| [Gitee](https://gitee.com/hnyqwq/video) \| [GitCode](https://gitcode.com/hnyqwq/video)（私密） |
-| 轨交查询指南 | 应用 | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hnyqwq.metro) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/4uQpMlTjyh5) | [GitHub](https://github.com/hnyqwq/metro) \| [Gitee](https://gitee.com/hnyqwq/metro) \| [GitCode](https://gitcode.com/hnyqwq/metro)（私密） |
-| 星河通行证 | 应用 | — | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/9XE8nUx2ntl) | — |
-| 星河工具盒（元服务） | 元服务 | — | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/2jZdmurLRvv) | — |
-| 云影工具屋（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/d499b2ab6cce532a602a2d55a93d66b3a3c371573bc3251790e81b84481f2309) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/52fRvA7p5Ow) | [GitHub](https://github.com/hnyqwq/videoyfw) \| [Gitee](https://gitee.com/hnyqwq/videoyfw) \| [GitCode](https://gitcode.com/hnyqwq/videoyfw)（私密） |
-| 轨交查询指南（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/1f33800aef81874fb9abc8ede95723a5e6443a6c61d5e25c90d4e9adac2006b5) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/97HN26SIItX) | [GitHub](https://github.com/hnyqwq/Metroyfw) \| [Gitee](https://gitee.com/hnyqwq/Metroyfw) \| [GitCode](https://gitcode.com/hnyqwq/Metroyfw)（私密） |
+| 应用          | 类型  | 正式版                                                                                                         | 测试版                                                               | 源码                                                                                                                                             |
+| ----------- | --- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 星河工具盒       | 应用  | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hny.qwq)                                          | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/8q2ifpJx0Qz) | [GitHub](https://github.com/hnyqwq/hny) | [Gitee](https://gitee.com/hnyqwq/XHTB) | [GitCode](https://gitcode.com/hnyqwq/XHTB)（私密）              |
+| 云影工具屋       | 应用  | [华为应用市场](https://appgallery.huawei.com/app/detail?id=com.hny.video)                                         | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/7bALvBIvIby) | [GitHub](https://github.com/hnyqwq/video) | [Gitee](https://gitee.com/hnyqwq/video) | [GitCode](https://gitcode.com/hnyqwq/video)（私密）          |
+| 轨交查询指南      | 应用  | [华为应用市场](https://appgallery.huawei.com/app/detail?id=yylx.hnyqwq.metro)                                     | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/4uQpMlTjyh5) | [GitHub](https://github.com/hnyqwq/metro) | [Gitee](https://gitee.com/hnyqwq/metro) | [GitCode](https://gitcode.com/hnyqwq/metro)（私密）          |
+| 星河通行证       | 应用  | —                                                                                                           | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/9XE8nUx2ntl) | —                                                                                                                                              |
+| 星河工具盒（元服务）  | 元服务 | —                                                                                                           | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/2jZdmurLRvv) | —                                                                                                                                              |
+| 云影工具屋（元服务）  | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/d499b2ab6cce532a602a2d55a93d66b3a3c371573bc3251790e81b84481f2309) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/52fRvA7p5Ow) | [GitHub](https://github.com/hnyqwq/videoyfw) | [Gitee](https://gitee.com/hnyqwq/videoyfw) | [GitCode](https://gitcode.com/hnyqwq/videoyfw)（私密） |
+| 轨交查询指南（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/1f33800aef81874fb9abc8ede95723a5e6443a6c61d5e25c90d4e9adac2006b5) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/97HN26SIItX) | [GitHub](https://github.com/hnyqwq/Metroyfw) | [Gitee](https://gitee.com/hnyqwq/Metroyfw) | [GitCode](https://gitcode.com/hnyqwq/Metroyfw)（私密） |
 
 ## 特性
 
@@ -51,15 +51,15 @@ var APPS = [
 
 ### 字段说明
 
-| 字段 | 说明 |
-|---|---|
-| `name` | 应用名称 |
-| `icon` | 应用图标图片路径 |
-| `desc` | 应用描述 |
-| `release` | 正式版链接数组 |
-| `beta` | 测试版链接数组 |
+| 字段         | 说明                                                         |
+| ---------- | ---------------------------------------------------------- |
+| `name`     | 应用名称                                                       |
+| `icon`     | 应用图标图片路径                                                   |
+| `desc`     | 应用描述                                                       |
+| `release`  | 正式版链接数组                                                    |
+| `beta`     | 测试版链接数组                                                    |
 | `platform` | 平台名称，决定显示的平台图标（含"AppTest"显示 AppTest 图标，否则显示 AppGallery 图标） |
-| `url` | 跳转链接 |
+| `url`      | 跳转链接                                                       |
 
 > 正式版下载徽章根据当前主题自动选择：浅色模式使用 `baji2.png`，深色模式使用 `baji1.png`。测试版使用文字按钮，无需手动配置。
 
@@ -67,16 +67,16 @@ var APPS = [
 
 默认背景图（低清）：
 
-| 方向 | 文件 |
-|---|---|
-| 竖屏 | `Vertical.jpg`、`login-bg2.jpg` |
+| 方向 | 文件                              |
+| -- | ------------------------------- |
+| 竖屏 | `Vertical.jpg`、`login-bg2.jpg`  |
 | 横屏 | `login-bg.jpg`、`Horizontal.jpg` |
 
 点击换图后自动升级为高清版：
 
-| 方向 | 文件 |
-|---|---|
-| 竖屏 | `showVertical.jpg`、`show1.jpg`、`show2.jpg` |
+| 方向 | 文件                                                  |
+| -- | --------------------------------------------------- |
+| 竖屏 | `showVertical.jpg`、`show1.jpg`、`show2.jpg`          |
 | 横屏 | `showlogin-bg.jpg`、`show3.jpg`、`showHorizontal.jpg` |
 
 ### 安卓版更新检测
@@ -106,24 +106,24 @@ https://app.hnyqwq.cn/apps/app-release.apk
 }
 ```
 
-| 字段 | 说明 |
-|---|---|
-| `versionName` | 最新版本号，用于与 `?v=` 参数比较 |
-| `versionCode` | 数字版本号，App 内检测更新按此比较，发版时必须递增 |
-| `date` | 发布日期，可选 |
-| `apk` | APK 下载链接，固定指向 `apps/app-release.apk`，发版只传包不改链接 |
-| `size` | 包大小文案，可选 |
-| `notes` | 更新内容，一行一个元素，支持换行排版（也可用单个字符串按 `\n` 拆分） |
+| 字段            | 说明                                             |
+| ------------- | ---------------------------------------------- |
+| `versionName` | 最新版本号，用于与 `?v=` 参数比较                           |
+| `versionCode` | 数字版本号，App 内检测更新按此比较，发版时必须递增                    |
+| `date`        | 发布日期，可选                                        |
+| `apk`         | APK 下载链接，固定指向 `apps/app-release.apk`，发版只传包不改链接 |
+| `size`        | 包大小文案，可选                                       |
+| `notes`       | 更新内容，一行一个元素，支持换行排版（也可用单个字符串按 `\n` 拆分）          |
 
 `notes` 排版规则（按每行首字符识别）：
 
-| 行首 | 渲染效果 |
-|---|---|
-| `【xxx】` | 加粗小节标题 |
-| `- xxx` | 列表项 |
+| 行首      | 渲染效果            |
+| ------- | --------------- |
+| `【xxx】` | 加粗小节标题          |
+| `- xxx` | 列表项             |
 | `> xxx` | 缩进子行，附着到上一个列表项下 |
-| 其他 | 普通段落 |
-| 空行 | 忽略（间距由 CSS 控制） |
+| 其他      | 普通段落            |
+| 空行      | 忽略（间距由 CSS 控制）  |
 
 ```json
 "notes": [
@@ -138,29 +138,33 @@ https://app.hnyqwq.cn/apps/app-release.apk
 
 链接参数：
 
-| 参数 | 说明 |
-|---|---|
-| `?tab=android` | 直达安卓版 Tab |
-| `?v=1.3.2.1` | 传入当前已装版本，页面自动比较并显示"发现新版本 / 已是最新" |
+| 参数             | 说明                               |
+| -------------- | -------------------------------- |
+| `?tab=android` | 直达安卓版 Tab                        |
+| `?v=1.3.2.1`   | 传入当前已装版本，页面自动比较并显示"发现新版本 / 已是最新" |
 
 App 内检测更新示例：`https://download.hnyqwq.cn/?tab=android&v=` + 当前 versionName。
 
 ### 其他图片资源
 
-| 文件 | 说明 |
-|---|---|
-| `baji1.png` | 正式版下载徽章（深色模式） |
-| `baji2.png` | 正式版下载徽章（浅色模式） |
-| `XHTB.png` | 星河工具盒图标 |
-| `video.png` | 云影工具屋图标 |
-| `metro.png` | 轨交查询指南图标 |
-| `hny.png` | 星河通行证图标 |
-| `XHTByfw.png` | 星河工具盒（元服务）图标 |
-| `metroyfw.png` | 轨交查询指南（元服务）图标 |
-| `videoyfw.png` | 云影工具屋（元服务）图标 |
+| 文件               | 说明              |
+| ---------------- | --------------- |
+| `baji1.png`      | 正式版下载徽章（深色模式）   |
+| `baji2.png`      | 正式版下载徽章（浅色模式）   |
+| `XHTB.png`       | 星河工具盒图标         |
+| `video.png`      | 云影工具屋图标         |
+| `metro.png`      | 轨交查询指南图标        |
+| `hny.png`        | 星河通行证图标         |
+| `XHTByfw.png`    | 星河工具盒（元服务）图标    |
+| `metroyfw.png`   | 轨交查询指南（元服务）图标   |
+| `videoyfw.png`   | 云影工具屋（元服务）图标    |
 | `AppGallery.png` | AppGallery 平台图标 |
-| `AppTest.png` | AppTest 平台图标 |
+| `AppTest.png`    | AppTest 平台图标    |
 
 ## 相关项目
 
 - [星河通行证](https://gitee.com/hnyqwq/user-auth-api)（私密） — 统一认证平台
+
+## License
+
+本项目暂未设置开源许可证，未经授权请勿直接用于商业用途。
