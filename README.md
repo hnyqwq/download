@@ -15,6 +15,7 @@ hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版和测试�
 | 星河工具盒（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/64123a730cb7096cf75db24172be02da2aa5062c792c3007ecf62e9219bd55d1) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/2jZdmurLRvv) | [GitHub](https://github.com/hnyqwq/XHTByfw) \| [Gitee](https://gitee.com/hnyqwq/XHTByfw) \| [GitCode](https://gitcode.com/hnyqwq/XHTByfw) |
 | 云影工具屋（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/d499b2ab6cce532a602a2d55a93d66b3a3c371573bc3251790e81b84481f2309) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/52fRvA7p5Ow) | [GitHub](https://github.com/hnyqwq/videoyfw) \| [Gitee](https://gitee.com/hnyqwq/videoyfw) \| [GitCode](https://gitcode.com/hnyqwq/videoyfw) |
 | 轨交查询指南（元服务） | 元服务 | [华为服务卡片](https://hoas.drcn.agconnect.link/1f33800aef81874fb9abc8ede95723a5e6443a6c61d5e25c90d4e9adac2006b5) | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/97HN26SIItX) | [GitHub](https://github.com/hnyqwq/Metroyfw) \| [Gitee](https://gitee.com/hnyqwq/Metroyfw) \| [GitCode](https://gitcode.com/hnyqwq/Metroyfw)（私密） |
+| 星河通行证（元服务） | 元服务 | — | [AppTest 邀请测试](https://appgallery.huawei.com/apptest/1Cdw8XEJt0v) | [GitHub](https://github.com/hnyqwq/hnyyfw) \| [Gitee](https://gitee.com/hnyqwq/hnyyfw) \| [GitCode](https://gitcode.com/hnyqwq/hnyyfw) |
 
 ## 特性
 
@@ -158,6 +159,7 @@ App 内检测更新示例：`https://download.hnyqwq.cn/?tab=android&v=` + 当�
 | `XHTByfw.png`    | 星河工具盒（元服务）图标    |
 | `metroyfw.png`   | 轨交查询指南（元服务）图标   |
 | `videoyfw.png`   | 云影工具屋（元服务）图标    |
+| `hnyyfw.png`     | 星河通行证（元服务）图标    |
 | `AppGallery.png` | AppGallery 平台图标 |
 | `AppTest.png`    | AppTest 平台图标    |
 
