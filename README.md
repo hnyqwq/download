@@ -1,6 +1,6 @@
 # hnyqwq 应用下载中心
 
-hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版和测试版下载链接。
+hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版、测试版和 ArkUI-X 版（Android / iOS）下载链接。
 
 网站地址：[download.hnyqwq.cn](https://download.hnyqwq.cn)
 
@@ -21,9 +21,10 @@ hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版和测试�
 
 - 磨砂玻璃 UI 风格，与[星河通行证](https://user.hnyqwq.cn)设计语言统一
 - HarmonyOS Sans SC 字体
-- 正式版 / 测试版 / 安卓版 Tab 切换，支持 `?tab=` 参数直链
-- 支持 `?app=` 参数置顶指定应用卡片（正式版与测试版 Tab 同步生效，支持 id 与名称模糊匹配）
-- 安卓版 Tab 实时检测更新：`?v=` 传入当前版本，自动比较并提示新版本，读取 `apks/metro/update.json`
+- 正式版 / 测试版 / ArkUI-X 版 Tab 切换，支持 `?tab=` 参数直链
+- 支持 `?app=` 参数置顶指定应用卡片（三个 Tab 均生效，支持 id、拼音别名与名称模糊匹配）
+- ArkUI-X 版 Tab：Android / iOS 双卡片 + iOS 历史更新公告卡，`?v=` 传入 Android 当前版本自动比较提示更新
+- iOS 更新日志自动同步 `update.json` 中最新一个版本的公告，历史公告单独成卡，无需单独维护
 - 响应式布局，小屏单列大屏双列自动排布
 - AppGallery 下载徽章 + AppTest 文字按钮
 - 深色/浅色模式切换，跟随系统实时切换
@@ -82,27 +83,35 @@ var APPS = [
 | 竖屏 | `showVertical.jpg`、`show1.jpg`、`show2.jpg`          |
 | 横屏 | `showlogin-bg.jpg`、`show3.jpg`、`showHorizontal.jpg` |
 
-### 安卓版更新检测
+### ArkUI-X 版（Android / iOS）
 
-安卓版 Tab 从 `apks/metro/update.json` 读取版本信息。
+ArkUI-X 版 Tab 从根目录 `update.json` 读取版本信息（原 `apks/metro/update.json` 已移出，`apks/` 目录已移除）。Tab 内共三张卡片：
 
-包体（APK）上传到服务器 `apps/` 目录（app.hnyqwq.cn，已 gitignore，不发仓库），下载链接**固定**为：
+1. 轨交查询指南 Android 版 — 完整更新日志（当前版本 + 历史版本），`?v=` 检测更新
+2. 轨交查询指南 iOS 版 — 只同步 `notes` 中最新一个版本的更新日志
+3. 轨交查询指南 iOS 历史更新公告 — 旧版本公告自动落到这张卡片
+
+三张卡片顺序均受 `?app=` 参数控制。
+
+包体上传到服务器 `apps/` 目录（app.hnyqwq.cn，已 gitignore，不发仓库），下载链接**固定**为：
 
 ```
-https://app.hnyqwq.cn/apps/app-release.apk
+Android: https://app.hnyqwq.cn/apps/app-release.apk
+iOS:     https://app.hnyqwq.cn/apps/app-unsigned.ipa
 ```
 
-发版步骤：上传新 APK 到服务器 `apps/` 目录（覆盖 `app-release.apk`），修改 `update.json` 中的版本号、日期、更新内容（链接不用动）。
+发版步骤：上传新 APK/IPA 到服务器 `apps/` 目录（覆盖对应文件），修改 `update.json` 中的版本号、日期、更新内容（链接不用动）。iOS 卡片与历史公告卡自动跟随 `notes` 变化，无需单独维护。
 
 ```json
 {
   "app": "轨交查询指南",
-  "platform": "Android",
+  "platform": "ArkUI-X",
   "latest": {
     "versionName": "1.5.0.0",
     "versionCode": 10500000,
     "date": "2026-09-08",
     "apk": "https://app.hnyqwq.cn/apps/app-release.apk",
+    "ipa": "https://app.hnyqwq.cn/apps/app-unsigned.ipa",
     "size": "",
     "notes": ["更新内容一", "更新内容二"]
   }
@@ -115,6 +124,7 @@ https://app.hnyqwq.cn/apps/app-release.apk
 | `versionCode` | 数字版本号，App 内检测更新按此比较，发版时必须递增                    |
 | `date`        | 发布日期，可选                                        |
 | `apk`         | APK 下载链接，固定指向 `apps/app-release.apk`，发版只传包不改链接 |
+| `ipa`         | IPA 下载链接，固定指向 `apps/app-unsigned.ipa`，iOS 卡片下载按钮读取此字段 |
 | `size`        | 包大小文案，可选                                       |
 | `notes`       | 更新内容，一行一个元素，支持换行排版（也可用单个字符串按 `\n` 拆分）          |
 
@@ -143,33 +153,42 @@ https://app.hnyqwq.cn/apps/app-release.apk
 
 | 参数             | 说明                               |
 | -------------- | -------------------------------- |
-| `?tab=android` | 直达安卓版 Tab                        |
+| `?tab=android` | 直达 ArkUI-X 版 Tab                 |
 | `?v=1.3.2.1`   | 传入当前已装版本，页面自动比较并显示"发现新版本 / 已是最新" |
-| `?app=metro`   | 把指定应用的卡片提到第一位（正式版与测试版 Tab 均生效）   |
+| `?app=metro`   | 把指定应用的卡片提到第一位（三个 Tab 均生效）        |
 
 App 内检测更新示例：`https://download.hnyqwq.cn/?tab=android&v=` + 当前 versionName。
 
 ### 置顶指定应用（?app=）
 
-在链接尾部加 `?app=`，可把对应应用的卡片提到列表第一位，正式版和测试版（邀测）Tab 同步生效：
+在链接尾部加 `?app=`，可把对应应用的卡片提到列表第一位，正式版、测试版（邀测）和 ArkUI-X 版 Tab 同步生效：
 
 ```
 https://download.hnyqwq.cn/?app=metro
 https://download.hnyqwq.cn/?tab=beta&app=metroyfw
+https://download.hnyqwq.cn/?tab=android&app=metroios
 ```
 
-`?app=` 取值支持应用 id（精确匹配）：
+`?app=` 取值支持应用 id 或拼音别名（精确匹配，大小写不敏感）：
 
-| id         | 应用          |
-| ---------- | ----------- |
-| `xhtb`     | 星河工具盒       |
-| `video`    | 云影工具屋       |
-| `metro`    | 轨交查询指南      |
-| `hny`      | 星河通行证       |
-| `xhtbyfw`  | 星河工具盒（元服务）  |
-| `videoyfw` | 云影工具屋（元服务）  |
-| `metroyfw` | 轨交查询指南（元服务） |
-| `hnyyfw`   | 星河通行证（元服务）  |
+| id         | alias（拼音缩写） | 应用           |
+| ---------- | ----------- | ------------ |
+| `xhtb`     | `xhgjh`     | 星河工具盒        |
+| `video`    | `yygjw`     | 云影工具屋        |
+| `metro`    | `gjcxzn`    | 轨交查询指南       |
+| `hny`      | `xhtxz`     | 星河通行证        |
+| `xhtbyfw`  | `xhgjhyfw`  | 星河工具盒（元服务）   |
+| `videoyfw` | `yygjwyfw`  | 云影工具屋（元服务）   |
+| `metroyfw` | `gjcxznyfw` | 轨交查询指南（元服务）  |
+| `hnyyfw`   | `xhtxzyfw`  | 星河通行证（元服务）   |
+
+ArkUI-X 版 Tab 的三张卡片同样支持置顶，`metro` / `gjcxzn` / `轨交` 会同时置顶三张（保持原有先后顺序）：
+
+| id              | 卡片                 |
+| --------------- | ------------------ |
+| `metroandroid`  | 轨交查询指南 Android 版   |
+| `metroios`      | 轨交查询指南 iOS 版       |
+| `metrohistory`  | iOS 历史更新公告         |
 
 也支持按应用名称子串模糊匹配（中英文均可，如 `?app=轨交`、`?app=xinghe`）。逗号分隔可置顶多个并按传入顺序排列，如 `?app=xhtb,video`。参数值不匹配任何应用时保持默认顺序，可与其他参数自由组合（如 `?tab=beta&app=metro`）。
 

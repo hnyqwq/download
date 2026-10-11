@@ -362,12 +362,12 @@
       <div class="card-inner">
         <div class="brand-header">
           <span class="brand-name">hnyqwq 应用下载中心</span>
-          <span class="brand-sub">hnyqwq 应用下载页面，用于展示各 APP 的正式版、测试版和安卓版下载链接</span>
+          <span class="brand-sub">hnyqwq 应用下载页面，用于展示各 APP 的正式版、测试版和 ArkUI-X 版下载链接</span>
         </div>
         <div class="tabs">
           <button class="tab active" data-tab="release">正式版</button>
           <button class="tab" data-tab="beta">测试版</button>
-          <button class="tab" data-tab="android">安卓版</button>
+          <button class="tab" data-tab="android">ArkUI-X 版</button>
         </div>
         <div id="tabRelease" class="tab-content active"></div>
         <div id="tabBeta" class="tab-content"></div>
@@ -385,6 +385,7 @@
   var APPS = [
     {
       id: "xhtb",
+      alias: ["xhgjh"],
       name: "星河工具盒 Xinghe Tool Box",
       icon: "images/XHTB.png",
       desc: "鸿蒙便捷分享应用，支持链接/文本/图片/视频自定义分享，碰一碰与隔空投送跨设备传输",
@@ -398,6 +399,7 @@
     },
     {
       id: "video",
+      alias: ["yygjw"],
       name: "云影工具屋 YunYing Tool House",
       icon: "images/video.png",
       desc: "HarmonyOS 视频播放器，支持网络/本地视频播放、网页视频提取、碰一碰分享、扫码输入、OCR文字识别等",
@@ -410,6 +412,7 @@
     },
     {
       id: "metro",
+      alias: ["gjcxzn"],
       name: "轨交查询指南 Tianfu Rail Transit Guide",
       icon: "images/metro.png",
       desc: "专为成都地铁乘客打造的 HarmonyOS 原生出行 App，提供线路查询、站点详情、路线规划、附近站点定位等功能",
@@ -422,6 +425,7 @@
     },
     {
       id: "hny",
+      alias: ["xhtxz"],
       name: "星河通行证 Xinghe Passport",
       icon: "images/hny.png",
       desc: "提供TOTP动态验证码的生成与管理服务，内置密码生成器、密码强度检测、编码转换、哈希计算、随机数生成等安全工具，并可管理星河通行证账号服务",
@@ -434,6 +438,7 @@
     },
     {
       id: "xhtbyfw",
+      alias: ["xhgjhyfw"],
       name: "星河工具盒 Xinghe Tool Box（元服务）",
       icon: "images/XHTByfw.png",
       desc: "一款即点即用的元服务工具箱，无需下载安装，打开即用。提供文本处理、图像处理、实用工具、分享预览等小工具",
@@ -447,6 +452,7 @@
     },
     {
       id: "videoyfw",
+      alias: ["yygjwyfw"],
       name: "云影工具屋 YunYing Tool House（元服务）",
       icon: "images/videoyfw.png",
       desc: "HarmonyOS 视频播放器元服务版，支持网络/本地视频播放、扫码输入、语音转文字等",
@@ -459,6 +465,7 @@
     },
     {
       id: "metroyfw",
+      alias: ["gjcxznyfw"],
       name: "轨交查询指南 Tianfu Rail Transit Guide（元服务）",
       icon: "images/metroyfw.png",
       desc: "专为成都地铁乘客打造的 HarmonyOS 原生出行 App 元服务版，提供线路查询、站点详情、路线规划等功能",
@@ -471,6 +478,7 @@
     },
     {
       id: "hnyyfw",
+      alias: ["xhtxzyfw"],
       name: "星河通行证 Xinghe Passport（元服务）",
       icon: "images/hnyyfw.png",
       desc: "提供TOTP动态验证码的生成与管理服务，内置密码生成器、密码强度检测、编码转换、哈希计算、随机数生成等安全工具，并可管理星河通行证账号服务",
@@ -481,43 +489,58 @@
     }
   ];
 
-  // 读取 ?app= 参数，把指定应用的卡片置顶（正式版/测试版 Tab 均生效）
-  // 支持应用 id 精确匹配（如 ?app=metro）与名称模糊匹配（如 ?app=轨交），逗号分隔可置顶多个
-  function getOrderedApps() {
+  // 读取 ?app= 参数，把指定应用的卡片置顶（正式版/测试版/ArkUI-X 版 Tab 均生效）
+  // 匹配优先级：id 精确 > alias 精确（拼音缩写，如 ?app=xhgjh）> 名称模糊匹配（如 ?app=轨交）
+  // 逗号分隔可置顶多个
+  function getAppParamKeys() {
     var param = '';
     try {
       param = (new URLSearchParams(window.location.search).get('app') || '').trim();
     } catch (e) {}
-    if (!param) return APPS;
+    if (!param) return [];
     var keys = param.toLowerCase().split(/[,\s]+/);
     var validKeys = [];
     for (var ki = 0; ki < keys.length; ki++) {
       if (keys[ki]) validKeys.push(keys[ki]);
     }
-    if (!validKeys.length) return APPS;
+    return validKeys;
+  }
+
+  function matchAppRank(item, keys) {
+    var appId = String(item.id || '').toLowerCase();
+    var appName = String(item.name || '').toLowerCase();
+    var aliases = item.alias || [];
+    for (var j = 0; j < keys.length; j++) {
+      var key = keys[j];
+      if (appId && appId === key) return j;
+      for (var a = 0; a < aliases.length; a++) {
+        if (String(aliases[a]).toLowerCase() === key) return j;
+      }
+    }
+    for (var k = 0; k < keys.length; k++) {
+      if (keys[k].length >= 2 && appName.indexOf(keys[k]) !== -1) return k;
+    }
+    return -1;
+  }
+
+  function pinApps(list, keys) {
+    if (!keys.length) return list;
     var pinned = [];
     var rest = [];
-    for (var i = 0; i < APPS.length; i++) {
-      var app = APPS[i];
-      var appId = String(app.id || '').toLowerCase();
-      var appName = String(app.name || '').toLowerCase();
-      var rank = -1;
-      for (var j = 0; j < validKeys.length; j++) {
-        if (appId && appId === validKeys[j]) { rank = j; break; }
-      }
-      if (rank < 0) {
-        for (var k = 0; k < validKeys.length; k++) {
-          if (validKeys[k].length >= 2 && appName.indexOf(validKeys[k]) !== -1) { rank = k; break; }
-        }
-      }
-      if (rank >= 0) pinned.push({ rank: rank, order: i, app: app });
-      else rest.push(app);
+    for (var i = 0; i < list.length; i++) {
+      var rank = matchAppRank(list[i], keys);
+      if (rank >= 0) pinned.push({ rank: rank, order: i, app: list[i] });
+      else rest.push(list[i]);
     }
-    if (!pinned.length) return APPS;
+    if (!pinned.length) return list;
     pinned.sort(function(a, b) { return a.rank - b.rank || a.order - b.order; });
     var out = [];
     for (var p = 0; p < pinned.length; p++) out.push(pinned[p].app);
     return out.concat(rest);
+  }
+
+  function getOrderedApps() {
+    return pinApps(APPS, getAppParamKeys());
   }
 
   function renderApps(type) {
@@ -621,54 +644,118 @@
     return html;
   }
 
-  function renderAndroidTab() {
+  var IOS_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16.365 1.43c0 1.14-.473 2.29-1.28 3.11-.86.87-2.19 1.54-3.24 1.45-.13-1.09.44-2.24 1.24-3.06.87-.87 2.3-1.5 3.28-1.5zM20.94 17.05c-.57 1.31-.84 1.9-1.58 3.06-1.02 1.61-2.46 3.62-4.25 3.63-1.59.02-2-1.03-4.16-1.02-2.16.01-2.61 1.04-4.2 1.03-1.79-.02-3.16-1.83-4.18-3.44C.02 16.75-.3 12.24 1.34 9.8c1.16-1.73 2.99-2.75 4.71-2.75 1.75 0 2.85 1.03 4.3 1.03 1.4 0 2.26-1.03 4.28-1.03 1.53 0 3.15.83 4.3 2.27-3.78 2.07-3.17 7.47 2.01 7.73z"/></svg>';
+
+  // ArkUI-X 版 Tab 卡片定义，顺序受 ?app= 参数控制（metro/gjcxzn/轨交 可同时置顶三张）
+  var ARKUIX_CARDS = [
+    { id: 'metroandroid', alias: ['metro', 'gjcxzn'], name: '轨交查询指南 Android 版', kind: 'android' },
+    { id: 'metroios', alias: ['metro', 'gjcxzn'], name: '轨交查询指南 iOS 版', kind: 'ios' },
+    { id: 'metrohistory', alias: ['metro', 'gjcxzn'], name: '轨交查询指南 iOS 历史更新公告', kind: 'ios-history' }
+  ];
+
+  // 按分隔行（如 "1.5.0.0 2026-09-23"）拆分更新日志：前段=当前版本公告，后段=历史版本公告
+  function splitVersionNotes(notes) {
+    var splitIdx = -1;
+    for (var ni = 0; ni < notes.length; ni++) {
+      if (/^\d+\.\d+\.\d+\.\d+\s+\d{4}-\d{2}-\d{2}$/.test(String(notes[ni]).trim())) { splitIdx = ni; break; }
+    }
+    return {
+      current: splitIdx >= 0 ? notes.slice(0, splitIdx) : notes,
+      older: splitIdx >= 0 ? notes.slice(splitIdx) : []
+    };
+  }
+
+  function renderAndroidCard(v, current) {
+    var html = '<div class="app-card">';
+    html += '<div class="app-header">';
+    html += '<img class="app-icon" src="images/metro.png" alt="轨交查询指南">';
+    html += '<div class="app-info">';
+    html += '<div class="app-name">轨交查询指南 Android 版</div>';
+    html += '<div class="update-meta">最新版本 v' + escHtml(v.versionName)
+      + (v.date ? ' · ' + escHtml(v.date) : '')
+      + (v.size ? ' · ' + escHtml(v.size) : '') + '</div>';
+    html += '</div></div>';
+    if (current) {
+      if (cmpVersion(current, v.versionName) < 0) {
+        html += '<div class="update-banner">发现新版本 v' + escHtml(v.versionName) + '，当前 v' + escHtml(current) + '，建议更新</div>';
+      } else {
+        html += '<div class="update-banner ok">当前 v' + escHtml(current) + ' 已是最新版本</div>';
+      }
+    }
+    if (v.notes && v.notes.length) {
+      html += '<div class="app-link-label" style="margin-top:12px;">更新内容</div>';
+      var parts = splitVersionNotes(v.notes);
+      html += renderNotes(parts.current);
+      // 下载按钮与安装说明：位于当前版本公告与历史版本公告之间
+      html += '<div class="app-links" style="margin-top:14px;">';
+      html += '<a class="platform-btn" href="' + escHtml(v.apk) + '">' + ANDROID_ICON + '下载 APK</a>';
+      html += '</div>';
+      html += '<div class="update-meta" style="margin-top:8px;">首次安装需在系统设置中允许安装未知来源应用</div>';
+      if (parts.older.length) {
+        html += renderNotes(parts.older);
+      }
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function renderIosCard(v) {
+    var html = '<div class="app-card">';
+    html += '<div class="app-header">';
+    html += '<img class="app-icon" src="images/metro.png" alt="轨交查询指南">';
+    html += '<div class="app-info">';
+    html += '<div class="app-name">轨交查询指南 iOS 版</div>';
+    html += '<div class="update-meta">最新版本 v' + escHtml(v.versionName) + (v.date ? ' · ' + escHtml(v.date) : '') + '</div>';
+    html += '</div></div>';
+    if (v.notes && v.notes.length) {
+      html += '<div class="app-link-label" style="margin-top:12px;">更新内容</div>';
+      // iOS 仅同步最新一个版本的更新日志，历史公告单独放在第三张卡片
+      html += renderNotes(splitVersionNotes(v.notes).current);
+    }
+    if (v.ipa) {
+      html += '<div class="app-links" style="margin-top:14px;">';
+      html += '<a class="platform-btn" href="' + escHtml(v.ipa) + '">' + IOS_ICON + '下载 IPA</a>';
+      html += '</div>';
+      html += '<div class="update-meta" style="margin-top:8px;">未上架 App Store，IPA 下载后需自行签名安装</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function renderIosHistoryCard(olderNotes) {
+    if (!olderNotes.length) return '';
+    var html = '<div class="app-card">';
+    html += '<div class="app-header">';
+    html += '<img class="app-icon" src="images/metro.png" alt="轨交查询指南">';
+    html += '<div class="app-info">';
+    html += '<div class="app-name">轨交查询指南 iOS 历史更新公告</div>';
+    html += '<div class="update-meta">更早版本的更新内容</div>';
+    html += '</div></div>';
+    html += renderNotes(olderNotes);
+    html += '</div>';
+    return html;
+  }
+
+  function renderArkuisTab() {
     var container = document.getElementById('tabAndroid');
     var current = new URLSearchParams(window.location.search).get('v');
-    fetch('apks/metro/update.json?t=' + Date.now())
+    fetch('update.json?t=' + Date.now())
       .then(function(r) { return r.ok ? r.json() : Promise.reject(new Error(r.status)); })
       .then(function(data) {
         var v = data && data.latest;
-        if (!v || !v.versionName || !v.apk) return Promise.reject(new Error('bad manifest'));
-        var html = '<div class="app-card">';
-        html += '<div class="app-header">';
-        html += '<img class="app-icon" src="images/metro.png" alt="轨交查询指南">';
-        html += '<div class="app-info">';
-        html += '<div class="app-name">轨交查询指南 Android 版</div>';
-        html += '<div class="update-meta">最新版本 v' + escHtml(v.versionName)
-          + (v.date ? ' · ' + escHtml(v.date) : '')
-          + (v.size ? ' · ' + escHtml(v.size) : '') + '</div>';
-        html += '</div></div>';
-        if (current) {
-          if (cmpVersion(current, v.versionName) < 0) {
-            html += '<div class="update-banner">发现新版本 v' + escHtml(v.versionName) + '，当前 v' + escHtml(current) + '，建议更新</div>';
-          } else {
-            html += '<div class="update-banner ok">当前 v' + escHtml(current) + ' 已是最新版本</div>';
-          }
+        if (!v || !v.versionName) return Promise.reject(new Error('bad manifest'));
+        var parts = v.notes && v.notes.length ? splitVersionNotes(v.notes) : { current: [], older: [] };
+        var cards = pinApps(ARKUIX_CARDS, getAppParamKeys());
+        var html = '';
+        for (var i = 0; i < cards.length; i++) {
+          if (cards[i].kind === 'android') html += renderAndroidCard(v, current);
+          else if (cards[i].kind === 'ios') html += renderIosCard(v);
+          else html += renderIosHistoryCard(parts.older);
         }
-        if (v.notes && v.notes.length) {
-          html += '<div class="app-link-label" style="margin-top:12px;">更新内容</div>';
-          // 按分隔行（如 "1.5.0.0 2026-09-23"）拆分：前段=当前版本公告，后段=历史版本公告
-          var splitIdx = -1;
-          for (var ni = 0; ni < v.notes.length; ni++) {
-            if (/^\d+\.\d+\.\d+\.\d+\s+\d{4}-\d{2}-\d{2}$/.test(String(v.notes[ni]).trim())) { splitIdx = ni; break; }
-          }
-          var currentNotes = splitIdx >= 0 ? v.notes.slice(0, splitIdx) : v.notes;
-          var olderNotes = splitIdx >= 0 ? v.notes.slice(splitIdx) : [];
-          html += renderNotes(currentNotes);
-          // 下载按钮与安装说明：位于当前版本公告与历史版本公告之间
-          html += '<div class="app-links" style="margin-top:14px;">';
-          html += '<a class="platform-btn" href="' + escHtml(v.apk) + '">' + ANDROID_ICON + '下载 APK</a>';
-          html += '</div>';
-          html += '<div class="update-meta" style="margin-top:8px;">首次安装需在系统设置中允许安装未知来源应用</div>';
-          if (olderNotes.length) {
-            html += renderNotes(olderNotes);
-          }
-        }
-        html += '</div>';
-        container.innerHTML = html;
+        container.innerHTML = html || '<div class="empty-tip">暂无 ArkUI-X 版本信息</div>';
       })
       .catch(function() {
-        container.innerHTML = '<div class="empty-tip">暂无 Android 版本信息</div>';
+        container.innerHTML = '<div class="empty-tip">暂无 ArkUI-X 版本信息</div>';
       });
   }
 
@@ -788,7 +875,7 @@
   renderApps('release');
   renderApps('beta');
   updateThemeBtn();
-  renderAndroidTab();
+  renderArkuisTab();
 
   (function(){
     var initTab = new URLSearchParams(window.location.search).get('tab');

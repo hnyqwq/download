@@ -1,11 +1,12 @@
 {
   "app": "轨交查询指南",
-  "platform": "Android",
+  "platform": "ArkUI-X",
   "latest": {
     "versionName": "2.0.0.0",
     "versionCode": 20000000,
     "date": "2026-10-01",
     "apk": "https://app.hnyqwq.cn/apps/app-release.apk",
+    "ipa": "https://app.hnyqwq.cn/apps/app-unsigned.ipa",
     "size": "",
     "notes": [
       "【新增】",
