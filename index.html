@@ -851,9 +851,10 @@
     });
   })();
 
-  var TAB_IDS = { release: 'tabRelease', beta: 'tabBeta', android: 'tabAndroid' };
+  var TAB_IDS = { release: 'tabRelease', beta: 'tabBeta', android: 'tabAndroid', arkuix: 'tabAndroid' };
 
   function activateTab(name, updateUrl) {
+    if (name === 'arkuix') name = 'android'; // ?tab=arkuix 别名，兼容直达 ArkUI-X 版 Tab
     document.querySelectorAll('.tab').forEach(function(t) {
       t.classList.toggle('active', t.getAttribute('data-tab') === name);
     });

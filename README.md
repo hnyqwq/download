@@ -153,7 +153,7 @@ iOS:     https://app.hnyqwq.cn/apps/app-unsigned.ipa
 
 | 参数             | 说明                               |
 | -------------- | -------------------------------- |
-| `?tab=android` | 直达 ArkUI-X 版 Tab                 |
+| `?tab=android` | 直达 ArkUI-X 版 Tab（别名 `?tab=arkuix`） |
 | `?v=1.3.2.1`   | 传入当前已装版本，页面自动比较并显示"发现新版本 / 已是最新" |
 | `?app=metro`   | 把指定应用的卡片提到第一位（三个 Tab 均生效）        |
 
