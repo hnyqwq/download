@@ -22,6 +22,7 @@ hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版和测试�
 - 磨砂玻璃 UI 风格，与[星河通行证](https://user.hnyqwq.cn)设计语言统一
 - HarmonyOS Sans SC 字体
 - 正式版 / 测试版 / 安卓版 Tab 切换，支持 `?tab=` 参数直链
+- 支持 `?app=` 参数置顶指定应用卡片（正式版与测试版 Tab 同步生效，支持 id 与名称模糊匹配）
 - 安卓版 Tab 实时检测更新：`?v=` 传入当前版本，自动比较并提示新版本，读取 `apks/metro/update.json`
 - 响应式布局，小屏单列大屏双列自动排布
 - AppGallery 下载徽章 + AppTest 文字按钮
@@ -54,6 +55,7 @@ var APPS = [
 
 | 字段         | 说明                                                         |
 | ---------- | ---------------------------------------------------------- |
+| `id`       | 应用 id，用于 `?app=` 参数置顶匹配                                   |
 | `name`     | 应用名称                                                       |
 | `icon`     | 应用图标图片路径                                                   |
 | `desc`     | 应用描述                                                       |
@@ -143,8 +145,33 @@ https://app.hnyqwq.cn/apps/app-release.apk
 | -------------- | -------------------------------- |
 | `?tab=android` | 直达安卓版 Tab                        |
 | `?v=1.3.2.1`   | 传入当前已装版本，页面自动比较并显示"发现新版本 / 已是最新" |
+| `?app=metro`   | 把指定应用的卡片提到第一位（正式版与测试版 Tab 均生效）   |
 
 App 内检测更新示例：`https://download.hnyqwq.cn/?tab=android&v=` + 当前 versionName。
+
+### 置顶指定应用（?app=）
+
+在链接尾部加 `?app=`，可把对应应用的卡片提到列表第一位，正式版和测试版（邀测）Tab 同步生效：
+
+```
+https://download.hnyqwq.cn/?app=metro
+https://download.hnyqwq.cn/?tab=beta&app=metroyfw
+```
+
+`?app=` 取值支持应用 id（精确匹配）：
+
+| id         | 应用          |
+| ---------- | ----------- |
+| `xhtb`     | 星河工具盒       |
+| `video`    | 云影工具屋       |
+| `metro`    | 轨交查询指南      |
+| `hny`      | 星河通行证       |
+| `xhtbyfw`  | 星河工具盒（元服务）  |
+| `videoyfw` | 云影工具屋（元服务）  |
+| `metroyfw` | 轨交查询指南（元服务） |
+| `hnyyfw`   | 星河通行证（元服务）  |
+
+也支持按应用名称子串模糊匹配（中英文均可，如 `?app=轨交`、`?app=xinghe`）。逗号分隔可置顶多个并按传入顺序排列，如 `?app=xhtb,video`。参数值不匹配任何应用时保持默认顺序，可与其他参数自由组合（如 `?tab=beta&app=metro`）。
 
 ### 其他图片资源
 
