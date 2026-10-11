@@ -182,13 +182,17 @@ https://download.hnyqwq.cn/?tab=android&app=metroios
 | `metroyfw` | `gjcxznyfw` | 轨交查询指南（元服务）  |
 | `hnyyfw`   | `xhtxzyfw`  | 星河通行证（元服务）   |
 
-ArkUI-X 版 Tab 的三张卡片同样支持置顶，`metro` / `gjcxzn` / `轨交` 会同时置顶三张（保持原有先后顺序）：
+ArkUI-X 版 Tab 的卡片同样支持置顶。单卡关键词只置顶对应卡片，组级关键词（`metroarkuix` / `gjcxznarkuix`）把本组全部卡片一起提到前面（组内保持原有先后顺序）：
 
-| id              | 卡片                 |
-| --------------- | ------------------ |
-| `metroandroid`  | 轨交查询指南 Android 版   |
-| `metroios`      | 轨交查询指南 iOS 版       |
-| `metrohistory`  | iOS 历史更新公告         |
+| 关键词                          | 作用                          |
+| ----------------------------- | --------------------------- |
+| `metroandroid` / `gjcxznandroid` | 只置顶 Android 卡            |
+| `metroios` / `gjcxznios`         | 只置顶 iOS 卡               |
+| `metrohistory` / `gjcxznhistory` | 只置顶 iOS 历史更新公告卡      |
+| `metroarkuix` / `gjcxznarkuix`   | 置顶 ArkUI-X 组全部卡片        |
+| `metro` / `gjcxzn` / `轨交`       | 置顶 ArkUI-X 组全部卡片（同上）   |
+
+> 以后新增 ArkUI-X 应用卡片时按 `<appid>android` / `<appid>ios` / `<appid>history` 命名 id，组级关键词用 `<appid>arkuix`，并同步加拼音别名。
 
 也支持按应用名称子串模糊匹配（中英文均可，如 `?app=轨交`、`?app=xinghe`）。逗号分隔可置顶多个并按传入顺序排列，如 `?app=xhtb,video`。参数值不匹配任何应用时保持默认顺序，可与其他参数自由组合（如 `?tab=beta&app=metro`）。
 
