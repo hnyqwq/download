@@ -23,8 +23,8 @@ hnyqwq 应用下载页面，用于展示各 HarmonyOS APP 的正式版、测试�
 - HarmonyOS Sans SC 字体
 - 正式版 / 测试版 / ArkUI-X 版 Tab 切换，支持 `?tab=` 参数直链
 - 支持 `?app=` 参数置顶指定应用卡片（三个 Tab 均生效，支持 id、拼音别名与名称模糊匹配）
-- ArkUI-X 版 Tab：Android / iOS 双卡片 + iOS 历史更新公告卡，`?v=` 传入 Android 当前版本自动比较提示更新
-- iOS 更新日志自动同步 `update.json` 中最新一个版本的公告，历史公告单独成卡，无需单独维护
+- ArkUI-X 版 Tab：Android / iOS 双卡片 + ArkUI-X 历史更新公告卡，`?v=` 传入 Android 当前版本自动比较提示更新
+- Android / iOS 卡片均只展示最新一个版本的公告，历史公告单独成卡，发版只改 `update.json` 即可
 - 响应式布局，小屏单列大屏双列自动排布
 - AppGallery 下载徽章 + AppTest 文字按钮
 - 深色/浅色模式切换，跟随系统实时切换
@@ -87,9 +87,9 @@ var APPS = [
 
 ArkUI-X 版 Tab 从根目录 `update.json` 读取版本信息（原 `apks/metro/update.json` 已移出，`apks/` 目录已移除）。Tab 内共三张卡片：
 
-1. 轨交查询指南 Android 版 — 完整更新日志（当前版本 + 历史版本），`?v=` 检测更新
-2. 轨交查询指南 iOS 版 — 只同步 `notes` 中最新一个版本的更新日志
-3. 轨交查询指南 iOS 历史更新公告 — 旧版本公告自动落到这张卡片
+1. 轨交查询指南 Android 版 — 最新一个版本的更新日志，`?v=` 检测更新
+2. 轨交查询指南 iOS 版 — 同步最新一个版本的更新日志
+3. 轨交查询指南 ArkUI-X 历史更新公告 — 旧版本公告自动落到这张卡片
 
 三张卡片顺序均受 `?app=` 参数控制。
 

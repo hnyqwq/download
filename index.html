@@ -653,7 +653,7 @@
   var ARKUIX_CARDS = [
     { id: 'metroandroid', alias: ARKUIX_GROUP_ALIAS, name: '轨交查询指南 Android 版', kind: 'android' },
     { id: 'metroios', alias: ARKUIX_GROUP_ALIAS, name: '轨交查询指南 iOS 版', kind: 'ios' },
-    { id: 'metrohistory', alias: ARKUIX_GROUP_ALIAS, name: '轨交查询指南 iOS 历史更新公告', kind: 'ios-history' }
+    { id: 'metrohistory', alias: ARKUIX_GROUP_ALIAS, name: '轨交查询指南 ArkUI-X 历史更新公告', kind: 'ios-history' }
   ];
 
   // 按分隔行（如 "1.5.0.0 2026-09-23"）拆分更新日志：前段=当前版本公告，后段=历史版本公告
@@ -687,16 +687,12 @@
     }
     if (v.notes && v.notes.length) {
       html += '<div class="app-link-label" style="margin-top:12px;">更新内容</div>';
-      var parts = splitVersionNotes(v.notes);
-      html += renderNotes(parts.current);
-      // 下载按钮与安装说明：位于当前版本公告与历史版本公告之间
+      // Android 卡只展示最新版本的公告，历史公告统一放第三张卡片
+      html += renderNotes(splitVersionNotes(v.notes).current);
       html += '<div class="app-links" style="margin-top:14px;">';
       html += '<a class="platform-btn" href="' + escHtml(v.apk) + '">' + ANDROID_ICON + '下载 APK</a>';
       html += '</div>';
       html += '<div class="update-meta" style="margin-top:8px;">首次安装需在系统设置中允许安装未知来源应用</div>';
-      if (parts.older.length) {
-        html += renderNotes(parts.older);
-      }
     }
     html += '</div>';
     return html;
@@ -731,7 +727,7 @@
     html += '<div class="app-header">';
     html += '<img class="app-icon" src="images/metro.png" alt="轨交查询指南">';
     html += '<div class="app-info">';
-    html += '<div class="app-name">轨交查询指南 iOS 历史更新公告</div>';
+    html += '<div class="app-name">轨交查询指南 ArkUI-X 历史更新公告</div>';
     html += '<div class="update-meta">更早版本的更新内容</div>';
     html += '</div></div>';
     html += renderNotes(olderNotes);
