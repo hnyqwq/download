@@ -182,17 +182,17 @@ https://download.hnyqwq.cn/?tab=android&app=metroios
 | `metroyfw` | `gjcxznyfw` | 轨交查询指南（元服务）  |
 | `hnyyfw`   | `xhtxzyfw`  | 星河通行证（元服务）   |
 
-ArkUI-X 版 Tab 的卡片同样支持置顶。单卡关键词只置顶对应卡片，组级关键词（`metroarkuix` / `gjcxznarkuix`）把本组全部卡片一起提到前面（组内保持原有先后顺序）：
+ArkUI-X 版 Tab 的卡片以组为单位置顶：`安卓`、`ios`、`history`、`arkuix` 各关键词（含拼音写法）效果完全一致，都会把该应用的整组卡片（Android + iOS + 历史公告）提到前面，组内保持原有先后顺序。正统入口是 `metroarkuix` / `gjcxznarkuix`，其余为直达快捷写法：
 
-| 关键词                          | 作用                          |
-| ----------------------------- | --------------------------- |
-| `metroandroid` / `gjcxznandroid` | 只置顶 Android 卡            |
-| `metroios` / `gjcxznios`         | 只置顶 iOS 卡               |
-| `metrohistory` / `gjcxznhistory` | 只置顶 iOS 历史更新公告卡      |
-| `metroarkuix` / `gjcxznarkuix`   | 置顶 ArkUI-X 组全部卡片        |
-| `metro` / `gjcxzn` / `轨交`       | 置顶 ArkUI-X 组全部卡片（同上）   |
+| 关键词                          | 作用                     |
+| ----------------------------- | ---------------------- |
+| `metroarkuix` / `gjcxznarkuix`   | 置顶 ArkUI-X 组全部卡片（正统写法） |
+| `metroandroid` / `gjcxznandroid` | 置顶 ArkUI-X 组全部卡片（直达，效果等同） |
+| `metroios` / `gjcxznios`         | 置顶 ArkUI-X 组全部卡片（直达，效果等同） |
+| `metrohistory` / `gjcxznhistory` | 置顶 ArkUI-X 组全部卡片（直达，效果等同） |
+| `metro` / `gjcxzn` / `轨交`       | 置顶 ArkUI-X 组全部卡片（直达，效果等同） |
 
-> 以后新增 ArkUI-X 应用卡片时按 `<appid>android` / `<appid>ios` / `<appid>history` 命名 id，组级关键词用 `<appid>arkuix`，并同步加拼音别名。
+> 以后新增 ArkUI-X 应用卡片时按 `<appid>android` / `<appid>ios` / `<appid>history` 命名 id，把 `<appid>` 前缀的各关键词加入该应用的组级关键词表（正统入口 `<appid>arkuix`），并同步拼音别名。
 
 也支持按应用名称子串模糊匹配（中英文均可，如 `?app=轨交`、`?app=xinghe`）。逗号分隔可置顶多个并按传入顺序排列，如 `?app=xhtb,video`。参数值不匹配任何应用时保持默认顺序，可与其他参数自由组合（如 `?tab=beta&app=metro`）。
 
