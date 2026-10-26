@@ -1,6 +1,10 @@
 {
   "app": "轨交查询指南",
   "platform": "ArkUI-X",
+  "ios": {
+    "versionName": "2.0.0.0",
+    "date": "2026-10-01"
+  },
   "latest": {
     "versionName": "2.3.0.0",
     "versionCode": 20300000,

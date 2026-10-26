@@ -106,6 +106,10 @@ iOS:     https://app.hnyqwq.cn/apps/app-unsigned.ipa
 {
   "app": "轨交查询指南",
   "platform": "ArkUI-X",
+  "ios": {
+    "versionName": "2.0.0.0",
+    "date": "2026-10-01"
+  },
   "latest": {
     "versionName": "1.5.0.0",
     "versionCode": 10500000,
@@ -120,6 +124,8 @@ iOS:     https://app.hnyqwq.cn/apps/app-unsigned.ipa
 
 | 字段            | 说明                                             |
 | ------------- | ---------------------------------------------- |
+| `platform`   | 平台标识（ArkUI-X）                                       |
+| `ios`        | iOS 版独立版本信息，可选。`versionName` 指向某个历史版本时，iOS 卡片显示该版本的版本号、日期与更新日志，历史公告卡自动剔除该版本；未配置或与 `latest.versionName` 相同时跟随 Android |
 | `versionName` | 最新版本号，用于与 `?v=` 参数比较                           |
 | `versionCode` | 数字版本号，App 内检测更新按此比较，发版时必须递增                    |
 | `date`        | 发布日期，可选                                        |

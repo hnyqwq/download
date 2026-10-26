@@ -658,16 +658,21 @@
     { id: 'metrohistory', alias: ARKUIX_GROUP_ALIAS, name: '轨交查询指南 ArkUI-X 历史更新公告', kind: 'ios-history' }
   ];
 
-  // 按分隔行（如 "1.5.0.0 2026-09-23"）拆分更新日志：前段=当前版本公告，后段=历史版本公告
-  function splitVersionNotes(notes) {
-    var splitIdx = -1;
+  // 按版本头行（如 "1.5.0.0 2026-09-23"）把更新日志切成块：第一块=最新版本（无头行），其后每块对应一个历史版本
+  function splitVersionBlocks(notes) {
+    var blocks = [];
+    var cur = { header: '', lines: [] };
     for (var ni = 0; ni < notes.length; ni++) {
-      if (/^\d+\.\d+\.\d+\.\d+\s+\d{4}-\d{2}-\d{2}$/.test(String(notes[ni]).trim())) { splitIdx = ni; break; }
+      var line = String(notes[ni]).trim();
+      if (/^\d+\.\d+\.\d+\.\d+\s+\d{4}-\d{2}-\d{2}$/.test(line)) {
+        if (cur.lines.length || cur.header) blocks.push(cur);
+        cur = { header: line, lines: [] };
+      } else {
+        cur.lines.push(notes[ni]);
+      }
     }
-    return {
-      current: splitIdx >= 0 ? notes.slice(0, splitIdx) : notes,
-      older: splitIdx >= 0 ? notes.slice(splitIdx) : []
-    };
+    if (cur.lines.length || cur.header) blocks.push(cur);
+    return blocks;
   }
 
   function renderAndroidCard(v, current) {
@@ -690,7 +695,7 @@
     if (v.notes && v.notes.length) {
       html += '<div class="app-link-label" style="margin-top:12px;">更新内容</div>';
       // Android 卡只展示最新版本的公告，历史公告统一放第三张卡片
-      html += renderNotes(splitVersionNotes(v.notes).current);
+      html += renderNotes(splitVersionBlocks(v.notes)[0] && splitVersionBlocks(v.notes)[0].lines || []);
       html += '<div class="app-links" style="margin-top:14px;">';
       html += '<a class="platform-btn" href="' + escHtml(v.apk) + '">' + ANDROID_ICON + '下载 APK</a>';
       html += '</div>';
@@ -710,8 +715,8 @@
     html += '</div></div>';
     if (v.notes && v.notes.length) {
       html += '<div class="app-link-label" style="margin-top:12px;">更新内容</div>';
-      // iOS 仅同步最新一个版本的更新日志，历史公告单独放在第三张卡片
-      html += renderNotes(splitVersionNotes(v.notes).current);
+      // iOS 卡展示自己版本对应的更新日志（由调用方按 data.ios 选好），历史公告单独放在第三张卡片
+      html += renderNotes(v.notes);
     }
     if (v.ipa) {
       html += '<div class="app-links" style="margin-top:14px;">';
@@ -745,13 +750,40 @@
       .then(function(data) {
         var v = data && data.latest;
         if (!v || !v.versionName) return Promise.reject(new Error('bad manifest'));
-        var parts = v.notes && v.notes.length ? splitVersionNotes(v.notes) : { current: [], older: [] };
+        var blocks = v.notes && v.notes.length ? splitVersionBlocks(v.notes) : [];
+        // iOS 版本可独立配置（data.ios.versionName 指向历史版本块），未配置或与 latest 相同时跟随 Android
+        var iosInfo = {
+          versionName: v.versionName,
+          date: v.date,
+          ipa: v.ipa,
+          notes: blocks.length ? blocks[0].lines : []
+        };
+        var iosSkipIdx = -1;
+        if (data.ios && data.ios.versionName && data.ios.versionName !== v.versionName) {
+          for (var bi = 1; bi < blocks.length; bi++) {
+            if (blocks[bi].header.indexOf(data.ios.versionName) === 0) {
+              iosInfo.versionName = data.ios.versionName;
+              iosInfo.date = data.ios.date || (blocks[bi].header.split(/\s+/)[1] || '');
+              iosInfo.notes = blocks[bi].lines;
+              iosSkipIdx = bi;
+              break;
+            }
+          }
+        }
+        // 历史公告卡 = 除最新块和 iOS 当前块以外的所有历史版本
+        var olderLines = [];
+        for (var bj = 1; bj < blocks.length; bj++) {
+          if (bj === iosSkipIdx) continue;
+          if (olderLines.length) olderLines.push('');
+          if (blocks[bj].header) olderLines.push(blocks[bj].header);
+          olderLines = olderLines.concat(blocks[bj].lines);
+        }
         var cards = pinApps(ARKUIX_CARDS, getAppParamKeys());
         var html = '';
         for (var i = 0; i < cards.length; i++) {
           if (cards[i].kind === 'android') html += renderAndroidCard(v, current);
-          else if (cards[i].kind === 'ios') html += renderIosCard(v);
-          else html += renderIosHistoryCard(parts.older);
+          else if (cards[i].kind === 'ios') html += renderIosCard(iosInfo);
+          else html += renderIosHistoryCard(olderLines);
         }
         container.innerHTML = html || '<div class="empty-tip">暂无 ArkUI-X 版本信息</div>';
       })
