@@ -675,12 +675,12 @@
     return blocks;
   }
 
-  function renderAndroidCard(v, current) {
+  function renderAndroidCard(v, current, latestNotes, label) {
     var html = '<div class="app-card">';
     html += '<div class="app-header">';
     html += '<img class="app-icon" src="images/metro.png" alt="轨交查询指南">';
     html += '<div class="app-info">';
-    html += '<div class="app-name">轨交查询指南 Android 版</div>';
+    html += '<div class="app-name">轨交查询指南 Android 版' + (label ? '（' + escHtml(label) + '）' : '') + '</div>';
     html += '<div class="update-meta">最新版本 v' + escHtml(v.versionName)
       + (v.date ? ' · ' + escHtml(v.date) : '')
       + (v.size ? ' · ' + escHtml(v.size) : '') + '</div>';
@@ -692,10 +692,11 @@
         html += '<div class="update-banner ok">当前 v' + escHtml(current) + ' 已是最新版本</div>';
       }
     }
-    if (v.notes && v.notes.length) {
+    // 渠道分包卡不带 notes，共用 latest 最新版本公告；历史公告统一放第三张卡片
+    var notes = v.notes && v.notes.length ? v.notes : (latestNotes || []);
+    if (notes.length) {
       html += '<div class="app-link-label" style="margin-top:12px;">更新内容</div>';
-      // Android 卡只展示最新版本的公告，历史公告统一放第三张卡片
-      html += renderNotes(splitVersionBlocks(v.notes)[0] && splitVersionBlocks(v.notes)[0].lines || []);
+      html += renderNotes(splitVersionBlocks(notes)[0] && splitVersionBlocks(notes)[0].lines || []);
       html += '<div class="app-links" style="margin-top:14px;">';
       html += '<a class="platform-btn" href="' + escHtml(v.apk) + '">' + ANDROID_ICON + '下载 APK</a>';
       html += '</div>';
@@ -780,8 +781,18 @@
         }
         var cards = pinApps(ARKUIX_CARDS, getAppParamKeys());
         var html = '';
+        // androidPackages 渠道分包（com/yylx 各一卡，标题带渠道标签，共用 latest 最新公告），未配置回退单卡
+        var pkgs = data.androidPackages && data.androidPackages.length ? data.androidPackages : null;
         for (var i = 0; i < cards.length; i++) {
-          if (cards[i].kind === 'android') html += renderAndroidCard(v, current);
+          if (cards[i].kind === 'android') {
+            if (pkgs) {
+              for (var pi = 0; pi < pkgs.length; pi++) {
+                html += renderAndroidCard(pkgs[pi], current, v.notes, pkgs[pi].label);
+              }
+            } else {
+              html += renderAndroidCard(v, current, null, '');
+            }
+          }
           else if (cards[i].kind === 'ios') html += renderIosCard(iosInfo);
           else html += renderIosHistoryCard(olderLines);
         }

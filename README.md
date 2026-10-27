@@ -85,19 +85,20 @@ var APPS = [
 
 ### ArkUI-X 版（Android / iOS）
 
-ArkUI-X 版 Tab 从根目录 `update.json` 读取版本信息（原 `apks/metro/update.json` 已移出，`apks/` 目录已移除）。Tab 内共三张卡片：
+ArkUI-X 版 Tab 从根目录 `update.json` 读取版本信息（原 `apks/metro/update.json` 已移出，`apks/` 目录已移除）。Tab 内的 Android 卡按 `androidPackages` 渠道分包渲染（com/yylx 各一张，标题带渠道标签，共用 `latest` 最新公告；未配置时回退单卡）：
 
-1. 轨交查询指南 Android 版 — 最新一个版本的更新日志，`?v=` 检测更新
+1. 轨交查询指南 Android 版（直发包 `com.hnyqwq.metro` / 应用市场包 `yylx.hnyqwq.metro`）— 最新一个版本的更新日志，`?v=` 检测更新
 2. 轨交查询指南 iOS 版 — 同步最新一个版本的更新日志
 3. 轨交查询指南 ArkUI-X 历史更新公告 — 旧版本公告自动落到这张卡片
 
-三张卡片顺序均受 `?app=` 参数控制。
+三张（配置分包后为四张）卡片顺序均受 `?app=` 参数控制。
 
 包体上传到服务器 `apps/` 目录（app.hnyqwq.cn，已 gitignore，不发仓库），下载链接**固定**为：
 
 ```
-Android: https://app.hnyqwq.cn/apps/app-release.apk
-iOS:     https://app.hnyqwq.cn/apps/app-unsigned.ipa
+Android 直发包:     https://app.hnyqwq.cn/apps/metro_com_hnyqwq_<版本>_release.apk
+Android 应用市场包: https://app.hnyqwq.cn/apps/metro_yylx_hnyqwq_<版本>_release.apk
+iOS:               https://app.hnyqwq.cn/apps/app-unsigned.ipa
 ```
 
 发版步骤：上传新 APK/IPA 到服务器 `apps/` 目录（覆盖对应文件），修改 `update.json` 中的版本号、日期、更新内容（链接不用动）。iOS 卡片与历史公告卡自动跟随 `notes` 变化，无需单独维护。
@@ -110,6 +111,26 @@ iOS:     https://app.hnyqwq.cn/apps/app-unsigned.ipa
     "versionName": "2.0.0.0",
     "date": "2026-10-01"
   },
+  "androidPackages": [
+    {
+      "packageName": "com.hnyqwq.metro",
+      "label": "直发包",
+      "versionName": "2.3.0.0",
+      "versionCode": 20300000,
+      "date": "2026-10-27",
+      "apk": "https://app.hnyqwq.cn/apps/metro_com_hnyqwq_2.3.0.0_release.apk",
+      "size": ""
+    },
+    {
+      "packageName": "yylx.hnyqwq.metro",
+      "label": "应用市场包",
+      "versionName": "2.3.0.0",
+      "versionCode": 20300000,
+      "date": "2026-10-27",
+      "apk": "https://app.hnyqwq.cn/apps/metro_yylx_hnyqwq_2.3.0.0_release.apk",
+      "size": ""
+    }
+  ],
   "latest": {
     "versionName": "1.5.0.0",
     "versionCode": 10500000,
@@ -126,6 +147,8 @@ iOS:     https://app.hnyqwq.cn/apps/app-unsigned.ipa
 | ------------- | ---------------------------------------------- |
 | `platform`   | 平台标识（ArkUI-X）                                       |
 | `ios`        | iOS 版独立版本信息，可选。`versionName` 指向某个历史版本时，iOS 卡片显示该版本的版本号、日期与更新日志，历史公告卡自动剔除该版本；未配置或与 `latest.versionName` 相同时跟随 Android |
+| `androidPackages` | Android 渠道分包清单，可选。每项一张 Android 卡，`packageName` 与 App 包名匹配；App 内检测更新按包名取对应节点的 `versionCode`/`apk`（未命中回退 `latest`），支持 com/yylx 独立发版 |
+| `label`      | 渠道分包卡标题后缀，如「直发包」「应用市场包」                        |
 | `versionName` | 最新版本号，用于与 `?v=` 参数比较                           |
 | `versionCode` | 数字版本号，App 内检测更新按此比较，发版时必须递增                    |
 | `date`        | 发布日期，可选                                        |
