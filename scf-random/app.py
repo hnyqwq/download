@@ -3,9 +3,10 @@
 # 绑定域名：1234567hnyznb.rx.hnyqwq.cn（GitHub README 用）
 # 访问 <默认域名>/?type=h  ->  随机横屏图
 # 访问 <默认域名>/?type=v  ->  随机竖屏图
-# 纯 302 跳转，图片由 COS 直出（需保持每张 < 5MB，GitHub camo 限制）
+# 函数代理返回图片，Cache-Control: max-age=60 —— 浏览器每 60 秒重新随机一次
 import random
-from flask import Flask, redirect, request
+import urllib.request
+from flask import Flask, request, Response
 
 BASE = "https://app.hnyqwq.cn/png/hnyqwq/github"
 POOLS = {
@@ -19,7 +20,11 @@ app = Flask(__name__)
 def index():
     t = request.args.get("type", "h")
     pool = POOLS.get(t, POOLS["h"])
-    return redirect(BASE + "/" + random.choice(pool), 302)
+    name = random.choice(pool)
+    with urllib.request.urlopen(BASE + "/" + name, timeout=25) as r:
+        data = r.read()
+    return Response(data, mimetype="image/jpeg",
+                    headers={"Cache-Control": "max-age=60"})
 
 if __name__ == "__main__":
     # SCF Web 函数固定监听 9000 端口，不能删
