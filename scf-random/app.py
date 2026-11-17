@@ -7,8 +7,8 @@ import random
 from flask import Flask, redirect, request
 
 BASE = "https://app.hnyqwq.cn/png/hnyqwq"
-# 数据万象实时压缩：最长边 1080px + 质量 85，绕过 GitHub camo 大小限制
-PROCESS = "?imageMogr2/thumbnail/1080x/quality/85"
+# 数据万象实时压缩：保留原始分辨率，仅压质量至 85，最大 3.5MB，卡在 GitHub camo 5MB 限制内
+PROCESS = "?imageMogr2/quality/85"
 POOLS = {
     "h": ["showHorizontal.jpg", "show3.jpg", "showlogin-bg.jpg"],
     "v": ["showVertical.jpg", "show4.jpg", "show1.jpg", "show2.jpg"],
