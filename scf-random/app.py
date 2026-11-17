@@ -8,7 +8,7 @@ from flask import Flask, redirect, request
 BASE = "https://app.hnyqwq.cn/png/hnyqwq"
 POOLS = {
     "h": ["showHorizontal.jpg", "show3.jpg", "showlogin-bg.jpg"],
-    "v": ["showVertical.jpg", "show4.jpg"],
+    "v": ["showVertical.jpg", "show4.jpg", "show1.jpg", "show2.jpg"],
 }
 
 app = Flask(__name__)
