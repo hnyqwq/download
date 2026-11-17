@@ -18,3 +18,7 @@ def index():
     t = request.args.get("type", "h")
     pool = POOLS.get(t, POOLS["h"])
     return redirect(BASE + "/" + random.choice(pool), 302)
+
+if __name__ == "__main__":
+    # SCF Web 函数固定监听 9000 端口，不能删
+    app.run(host="0.0.0.0", port=9000)
